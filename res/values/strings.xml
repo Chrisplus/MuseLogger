@@ -4,5 +4,14 @@
     <string name="app_name">MuseLogger</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_connected">Connected</string>
+    <string name="status_unpaired">Unpaired</string>
+    <string name="status_log">Logging</string>
+    
+    <string name="btn_connect">connect</string>
+    <string name="btn_disconnect">disconnect</string>
+    
+    <string name="log_welcome">Welcome to MuseLogger\n</string>
 
 </resources>
