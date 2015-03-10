@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,8 @@ import com.interaxon.libmuse.MusePreset;
 import com.interaxon.libmuse.MuseVersion;
 
 public class MainActivity extends Activity implements View.OnClickListener {
+
+    private LoggingThread loggingThread;
 
     /**
      * Connection listener updates UI with new connection status and logs it.
@@ -100,19 +103,43 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         @Override
         public void receiveMuseDataPacket(MuseDataPacket p) {
-            switch (p.getPacketType()) {
-                case EEG:
-                    updateEeg(p.getValues());
-                    break;
-                case ACCELEROMETER:
-                    updateAccelerometer(p.getValues());
-                    break;
-                case ALPHA_RELATIVE:
-                    updateAlphaRelative(p.getValues());
-                    break;
-                default:
-                    break;
+            Message msg;
+            Bundle data = new Bundle();
+
+            if (loggingThread != null) {
+                data.putLong(loggingThread.TIME_KEY, p.getTimestamp());
+                data.putDoubleArray(loggingThread.DATA_KEY,
+                        hellConvert(p.getValues()));
+
+                switch (p.getPacketType()) {
+                    case EEG:
+                        updateEeg(p.getValues());
+                        msg = loggingThread.getLoggingHandler().obtainMessage(
+                                loggingThread.EEG_FLAG);
+
+                        break;
+                    case ACCELEROMETER:
+                        updateAccelerometer(p.getValues());
+                        msg = loggingThread.getLoggingHandler().obtainMessage(
+                                loggingThread.ACC_FLAG);
+                        break;
+                    case ALPHA_RELATIVE:
+                        updateAlphaRelative(p.getValues());
+                        msg = loggingThread.getLoggingHandler().obtainMessage(
+                                loggingThread.AR_FLAG);
+                        break;
+                    default:
+                        msg = loggingThread.getLoggingHandler().obtainMessage(
+                                loggingThread.UNKNOW_FLAG);
+                        break;
+                }
+
+                if (msg != null) {
+                    msg.setData(data);
+                    loggingThread.getLoggingHandler().sendMessage(msg);
+                }
             }
+
         }
 
         @Override
@@ -260,6 +287,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 } catch (Exception e) {
                     Log.e("Muse Headband", e.toString());
                 }
+
+                if (loggingThread == null) {
+                    loggingThread = new LoggingThread();
+                }
+
+                // TODO add a check
+                loggingThread.start();
             }
         }
         else if (v.getId() == R.id.disconnect) {
@@ -273,6 +307,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                  * muse.unregisterAllListeners(); muse.disconnect(false);
                  */
                 muse.disconnect(true);
+
+                if (loggingThread != null) {
+                    loggingThread.interrupt();
+                    loggingThread = null;
+                }
             }
         }
         else if (v.getId() == R.id.pause) {
@@ -314,5 +353,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private double[] hellConvert(List<Double> items) {
+        double[] res = new double[items.size()];
+        int index = 0;
+        for (Double next : items) {
+            res[index] = next;
+            index = index + 1;
+        }
+
+        return res;
     }
 }
