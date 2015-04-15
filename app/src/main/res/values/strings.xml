@@ -18,4 +18,5 @@
 	<string name="pause">Pause/Resume</string>
 	<string name="drop">Drop</string>
 	<string name="muse_elem">Elements:</string>
+	<string name="note_hint">Note</string>
 </resources>

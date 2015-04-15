@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,6 +36,35 @@ import java.util.List;
 public class MainActivity extends Activity implements View.OnClickListener {
 
     private LoggingThread loggingThread;
+
+    private TextView acc_x;
+
+    private TextView acc_y;
+
+    private TextView acc_z;
+
+    private TextView tp9;
+
+    private TextView fp1;
+
+    private TextView fp2;
+
+    private TextView tp10;
+
+    private TextView elem1;
+
+    private TextView elem2;
+
+    private TextView elem3;
+
+    private TextView elem4;
+
+    private TextView statusText;
+
+    private TextView museVersionText;
+
+    private EditText noteText;
+
 
     /**
      * Connection listener updates UI with new connection status and logs it.
@@ -64,11 +94,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView statusText =
-                                (TextView) findViewById(R.id.con_status);
+
                         statusText.setText(status);
-                        TextView museVersionText =
-                                (TextView) findViewById(R.id.version);
                         if (current == ConnectionState.CONNECTED) {
                             MuseVersion museVersion = muse.getMuseVersion();
                             String version = museVersion.getFirmwareType() +
@@ -155,9 +182,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView acc_x = (TextView) findViewById(R.id.acc_x);
-                        TextView acc_y = (TextView) findViewById(R.id.acc_y);
-                        TextView acc_z = (TextView) findViewById(R.id.acc_z);
+
                         acc_x.setText(String.format(
                                 "%6.2f", data.get(Accelerometer.FORWARD_BACKWARD.ordinal())));
                         acc_y.setText(String.format(
@@ -175,10 +200,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView tp9 = (TextView) findViewById(R.id.eeg_tp9);
-                        TextView fp1 = (TextView) findViewById(R.id.eeg_fp1);
-                        TextView fp2 = (TextView) findViewById(R.id.eeg_fp2);
-                        TextView tp10 = (TextView) findViewById(R.id.eeg_tp10);
+
                         tp9.setText(String.format(
                                 "%6.2f", data.get(Eeg.TP9.ordinal())));
                         fp1.setText(String.format(
@@ -198,10 +220,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView elem1 = (TextView) findViewById(R.id.elem1);
-                        TextView elem2 = (TextView) findViewById(R.id.elem2);
-                        TextView elem3 = (TextView) findViewById(R.id.elem3);
-                        TextView elem4 = (TextView) findViewById(R.id.elem4);
+
                         elem1.setText(String.format(
                                 "%6.2f", data.get(Eeg.TP9.ordinal())));
                         elem2.setText(String.format(
@@ -244,6 +263,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
         disconnectButton.setOnClickListener(this);
         Button pauseButton = (Button) findViewById(R.id.pause);
         pauseButton.setOnClickListener(this);
+        statusText =
+                (TextView) findViewById(R.id.con_status);
+        museVersionText =
+                (TextView) findViewById(R.id.version);
+        acc_x = (TextView) findViewById(R.id.acc_x);
+        acc_y = (TextView) findViewById(R.id.acc_y);
+        acc_z = (TextView) findViewById(R.id.acc_z);
+        tp9 = (TextView) findViewById(R.id.eeg_tp9);
+        fp1 = (TextView) findViewById(R.id.eeg_fp1);
+        fp2 = (TextView) findViewById(R.id.eeg_fp2);
+        tp10 = (TextView) findViewById(R.id.eeg_tp10);
+        elem1 = (TextView) findViewById(R.id.elem1);
+        elem2 = (TextView) findViewById(R.id.elem2);
+        elem3 = (TextView) findViewById(R.id.elem3);
+        elem4 = (TextView) findViewById(R.id.elem4);
+
+        noteText = (EditText) findViewById(R.id.note);
+
         Log.i("Muse Headband", "libmuse version=" + LibMuseVersion.SDK_VERSION);
     }
 
@@ -290,7 +327,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
 
                 if (loggingThread == null) {
-                    loggingThread = new LoggingThread();
+                    loggingThread = new LoggingThread(noteText.getText().toString().trim());
                 }
 
                 // TODO add a check

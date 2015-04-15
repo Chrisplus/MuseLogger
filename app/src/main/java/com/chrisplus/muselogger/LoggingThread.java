@@ -78,14 +78,14 @@ public class LoggingThread extends Thread {
         }
     };
 
-    public LoggingThread() {
+    public LoggingThread(String note) {
         super();
 
         File dir = makeDir();
         String currentTime = getCurrentTimeStamp();
-        File eeg = new File(dir, PX_EEG + currentTime + EX);
-        File acc = new File(dir, PX_ACC + currentTime + EX);
-        File ar = new File(dir, PX_AR + currentTime + EX);
+        File eeg = new File(dir, PX_EEG + note + "_" + currentTime + EX);
+        File acc = new File(dir, PX_ACC + note + "_" + currentTime + EX);
+        File ar = new File(dir, PX_AR + note + "_" + currentTime + EX);
 
         try {
             eegWriter = new FileWriter(eeg);
@@ -142,4 +142,5 @@ public class LoggingThread extends Thread {
     private String getCurrentTimeStamp() {
         return System.currentTimeMillis() + "";
     }
+
 }

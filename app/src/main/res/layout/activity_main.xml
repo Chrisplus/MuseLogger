@@ -13,18 +13,21 @@
 			android:orientation="horizontal">
 		<Button
 				android:id="@+id/refresh"
-				android:layout_width="100dp"
-				android:layout_height="40dp"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
 				android:text="@string/refresh"/>
 		<Button
 				android:id="@+id/connect"
-				android:layout_width="100dp"
-				android:layout_height="40dp"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
 				android:text="@string/connect"/>
 		<Button
 				android:id="@+id/disconnect"
-				android:layout_width="120dp"
-				android:layout_height="40dp"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
 				android:text="@string/disconnect"/>
 	</LinearLayout>
 	<TextView
@@ -172,9 +175,18 @@
 			android:orientation="horizontal">
 		<Button
 				android:id="@+id/pause"
-				android:layout_width="150dp"
-				android:layout_height="40dp"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
 				android:text="@string/pause"/>
+		<EditText
+				android:id="@+id/note"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:hint="@string/note_hint"
+				android:gravity="center"
+				/>
 	</LinearLayout>
 
 </LinearLayout>
