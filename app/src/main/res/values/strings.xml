@@ -13,10 +13,17 @@
 	<string name="accel">Accelerometer Data:</string>
 	<string name="version">Version:</string>
 	<string name="undefined">unknown</string>
-	<string name="artifacts">Blinks, Jaw: </string>
-	<string name="msg_count">Msg number, size: </string>
+	<string name="artifacts">Blinks, Jaw:</string>
+	<string name="msg_count">Msg number, size:</string>
 	<string name="pause">Pause/Resume</string>
 	<string name="drop">Drop</string>
 	<string name="muse_elem">Elements:</string>
 	<string name="note_hint">Note</string>
+	<string name="title_activity_muse">MuseActivity</string>
+
+	<string name="status_disconnected">Disconnected</string>
+	<string name="status_connecting">Connecting</string>
+	<string name="status_connected">Connected</string>
+	<string name="btn_connect">connect</string>
+	<string name="btn_refresh">refresh</string>
 </resources>
