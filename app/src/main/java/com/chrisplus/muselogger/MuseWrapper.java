@@ -72,10 +72,13 @@ public class MuseWrapper {
 
         muse.registerDataListener(dataListener,
                 MuseDataPacketType.ACCELEROMETER);
+
         muse.registerDataListener(dataListener,
                 MuseDataPacketType.EEG);
         muse.registerDataListener(dataListener,
                 MuseDataPacketType.ARTIFACTS);
+
+        muse.registerDataListener(dataListener, MuseDataPacketType.HORSESHOE);
 
         muse.setPreset(MusePreset.PRESET_14);
         muse.enableDataTransmission(true);
@@ -89,7 +92,13 @@ public class MuseWrapper {
 
         @Override
         public void receiveMuseDataPacket(MuseDataPacket museDataPacket) {
-            EventBus.getDefault().post(museDataPacket);
+            if (museDataPacket != null
+                    && museDataPacket.getPacketType() == MuseDataPacketType.HORSESHOE) {
+                EventBus.getDefault().post(museDataPacket.getValues());
+            } else {
+                EventBus.getDefault().post(museDataPacket);
+            }
+
         }
 
         @Override

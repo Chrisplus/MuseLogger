@@ -48,6 +48,14 @@ public class MainActivity extends ActionBarActivity {
 
     private List<Muse> currentMuses;
 
+    private TextView fp1status;
+
+    private TextView fp2status;
+
+    private TextView tp9status;
+
+    private TextView tp10status;
+
     private final Logger logger = new Logger();
 
     @Override
@@ -62,6 +70,12 @@ public class MainActivity extends ActionBarActivity {
         refreshBtn = (Button) findViewById(R.id.btn_refresh);
         settingBtn = (Button) findViewById(R.id.btn_setting);
         recordBtn = (Button) findViewById(R.id.btn_record);
+
+        fp1status = (TextView) findViewById(R.id.fp1);
+        fp2status = (TextView) findViewById(R.id.fp2);
+
+        tp9status = (TextView) findViewById(R.id.tp9);
+        tp10status = (TextView) findViewById(R.id.tp10);
 
         connectBtn.setOnClickListener(connectListener);
         refreshBtn.setOnClickListener(refreshListener);
@@ -157,6 +171,18 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+    }
+
+    public void onEvent(final ArrayList<Double> horseshoe) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tp9status.setText(horseshoe.get(0).toString());
+                fp1status.setText(horseshoe.get(1).toString());
+                fp2status.setText(horseshoe.get(2).toString());
+                tp10status.setText(horseshoe.get(3).toString());
+            }
+        });
     }
 
     private final View.OnClickListener connectListener = new View.OnClickListener() {

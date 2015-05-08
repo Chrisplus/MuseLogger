@@ -26,11 +26,59 @@
 			android:gravity="center"
 			android:text="@string/status_unknown"/>
 
+	<LinearLayout
+			android:id="@+id/horseshoe"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_below="@id/status"
+			android:layout_marginLeft="32dp"
+			android:layout_marginRight="32dp"
+			android:layout_marginTop="16dp"
+			>
+		<TextView
+				android:id="@+id/tp9"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="16sp"
+				android:gravity="center"
+				android:layout_marginLeft="8dp"
+				android:layout_marginRight="4dp"/>
+		<TextView
+				android:id="@+id/fp1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="16sp"
+				android:gravity="center"
+				android:layout_marginLeft="4dp"
+				android:layout_marginRight="4dp"/>
+		<TextView
+				android:id="@+id/fp2"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="16sp"
+				android:gravity="center"
+				android:layout_marginLeft="4dp"
+				android:layout_marginRight="4dp"/>
+		<TextView
+				android:id="@+id/tp10"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="16sp"
+				android:gravity="center"
+				android:layout_marginLeft="4dp"
+				android:layout_marginRight="8dp"/>
+	</LinearLayout>
+
 	<Button
 			android:id="@+id/btn_connect"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/status"
+			android:layout_below="@id/horseshoe"
 			android:layout_marginLeft="32dp"
 			android:layout_marginRight="32dp"
 			android:layout_marginTop="32dp"
@@ -47,6 +95,7 @@
 			android:layout_marginTop="16dp"
 			android:text="@string/btn_refresh"
 			/>
+
 
 	<LinearLayout
 			android:id="@+id/control_btn"
