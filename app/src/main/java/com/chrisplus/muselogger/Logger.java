@@ -49,6 +49,21 @@ public class Logger {
         }
     }
 
+    public synchronized void startLogging(String note) {
+        EventBus.getDefault().register(this);
+
+        String currentTime = System.currentTimeMillis() + "";
+        File eeg = new File(dir, PX_EEG + currentTime + "_" + note + EX);
+        File acc = new File(dir, PX_ACC + currentTime + "_" + note + EX);
+
+        try {
+            eegWriter = new FileWriter(eeg);
+            accWriter = new FileWriter(acc);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public synchronized void stopLogging() {
         EventBus.getDefault().unregister(this);
         try {

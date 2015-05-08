@@ -10,6 +10,10 @@
 	<string name="status_unknown">UNKNOWN</string>
 	<string name="status_connected">CONNECTED</string>
 	<string name="status_connecting">CONNECTING</string>
-	<string name="status_disconnected">DISCONNECTED</string>
+	<string name="status_disconnected">DISCONNECTED</string>'
+
+	<string name="note_dialog_title">Note</string>
+	<string name="note_dialog_ok">OK</string>
+	<string name="note_dialog_cancel">Cancel</string>
 
 </resources>

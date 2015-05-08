@@ -4,11 +4,14 @@ import com.interaxon.libmuse.ConnectionState;
 import com.interaxon.libmuse.Muse;
 import com.interaxon.libmuse.MuseConnectionPacket;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -81,6 +84,7 @@ public class MainActivity extends ActionBarActivity {
         refreshBtn.setOnClickListener(refreshListener);
         settingBtn.setOnClickListener(settingListener);
         recordBtn.setOnClickListener(recordListener);
+        recordBtn.setOnLongClickListener(recordLongListener);
     }
 
     private void updateStatus(MuseState state) {
@@ -185,6 +189,32 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    private void showNoteDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.note_dialog_title);
+
+        final EditText input = new EditText(this);
+        dialog.setView(input);
+
+        dialog.setPositiveButton(R.string.note_dialog_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                recordBtn.setText(R.string.btn_stop);
+                recordBtn.setTag(TAG_STOP);
+                logger.startLogging(input.getText().toString().trim());
+            }
+        });
+
+        dialog.setNegativeButton(R.string.note_dialog_cancel,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        dialog.show();
+    }
+
     private final View.OnClickListener connectListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -229,6 +259,16 @@ public class MainActivity extends ActionBarActivity {
                 recordBtn.setTag(TAG_RECORD);
                 logger.stopLogging();
             }
+        }
+    };
+
+    private final View.OnLongClickListener recordLongListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            if (TAG_RECORD.equals(recordBtn.getTag())) {
+                showNoteDialog();
+            }
+            return false;
         }
     };
 
