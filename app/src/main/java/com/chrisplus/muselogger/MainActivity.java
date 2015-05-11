@@ -6,6 +6,7 @@ import com.interaxon.libmuse.MuseConnectionPacket;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -137,6 +138,9 @@ public class MainActivity extends ActionBarActivity {
         currentMuses = MuseWrapper.getInstance(getApplicationContext()).getPairedMused();
         List<String> spinnerItems = new ArrayList<String>();
 
+        if(currentMuses == null || currentMuses.isEmpty()){
+            return;
+        }
         for (Muse m : currentMuses) {
             String dev_id = m.getName() + "-" + m.getMacAddress();
             spinnerItems.add(dev_id);
@@ -243,6 +247,8 @@ public class MainActivity extends ActionBarActivity {
     private final View.OnClickListener settingListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            MainActivity.this.startActivity(intent);
 
         }
     };

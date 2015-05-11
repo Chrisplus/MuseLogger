@@ -21,7 +21,8 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'de.greenrobot:eventbus:2.4.0'
     compile files('libs/libmuseandroid.jar')
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.android.support:support-v4:22.1.1'
 }

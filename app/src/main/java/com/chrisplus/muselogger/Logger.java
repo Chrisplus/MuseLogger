@@ -98,7 +98,7 @@ public class Logger {
                         eegWriter
                                 .write(packet.getTimestamp() + "," + packet.getValues().get(0) + ","
                                         + packet.getValues().get(1) + "," + packet.getValues()
-                                        .get(2) + "," + packet.getValues().get(3));
+                                        .get(2) + "," + packet.getValues().get(3) + "\n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -110,7 +110,7 @@ public class Logger {
                         accWriter
                                 .write(packet.getTimestamp() + "," + packet.getValues().get(0) + ","
                                         + packet.getValues().get(1) + "," + packet.getValues()
-                                        .get(2));
+                                        .get(2) + "\n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
