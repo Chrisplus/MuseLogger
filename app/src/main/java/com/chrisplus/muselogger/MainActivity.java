@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,6 +87,8 @@ public class MainActivity extends ActionBarActivity {
         settingBtn.setOnClickListener(settingListener);
         recordBtn.setOnClickListener(recordListener);
         recordBtn.setOnLongClickListener(recordLongListener);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     private void updateStatus(MuseState state) {

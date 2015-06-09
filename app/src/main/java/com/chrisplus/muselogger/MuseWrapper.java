@@ -76,7 +76,10 @@ public class MuseWrapper {
         muse.registerDataListener(dataListener,
                 MuseDataPacketType.EEG);
         muse.registerDataListener(dataListener,
-                MuseDataPacketType.ARTIFACTS);
+                MuseDataPacketType.DRL_REF);
+
+        muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_ABSOLUTE);
+        muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_RELATIVE);
 
         muse.registerDataListener(dataListener, MuseDataPacketType.HORSESHOE);
 
