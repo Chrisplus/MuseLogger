@@ -1,0 +1,118 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity">
+
+	<Spinner
+			android:id="@+id/spinner"
+			android:layout_alignParentTop="true"
+			android:layout_marginTop="6dp"
+			android:layout_marginLeft="16dp"
+			android:layout_marginRight="16dp"
+			android:layout_width="match_parent"
+			android:layout_height="64dp"/>
+
+	<LinearLayout
+			android:id="@+id/control"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_below="@id/spinner"
+			android:layout_marginLeft="16dp"
+			android:layout_marginRight="16dp"
+			android:layout_marginTop="8dp"
+			>
+		<Button
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:id="@+id/connectbtn"
+				android:layout_weight="1"
+				android:text="@string/btn_connect"/>
+
+		<Button
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:id="@+id/recordbtn"
+				android:layout_weight="1"
+				android:text="@string/btn_record"/>
+	</LinearLayout>
+
+	<LinearLayout
+			android:id="@+id/horseshoe"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_below="@id/control"
+			android:layout_marginLeft="32dp"
+			android:layout_marginRight="32dp"
+			android:layout_marginTop="8dp"
+			>
+		<View
+				android:id="@+id/tp9indicator"
+				android:layout_width="0dp"
+				android:layout_height="16dp"
+				android:layout_weight="1"
+				android:layout_marginLeft="16dp"
+				android:layout_marginRight="8dp"
+				android:background="@color/md_indigo_200"/>
+
+		<View
+				android:id="@+id/fp1indicator"
+				android:layout_width="0dp"
+				android:layout_height="16dp"
+				android:layout_weight="1"
+				android:layout_marginLeft="16dp"
+				android:layout_marginRight="8dp"
+				android:background="@color/md_indigo_200"/>
+
+		<View
+				android:id="@+id/fp2indicator"
+				android:layout_width="0dp"
+				android:layout_height="16dp"
+				android:layout_weight="1"
+				android:layout_marginLeft="16dp"
+				android:layout_marginRight="8dp"
+				android:background="@color/md_indigo_200"/>
+
+		<View
+				android:id="@+id/tp10indicator"
+				android:layout_width="0dp"
+				android:layout_height="16dp"
+				android:layout_weight="1"
+				android:layout_marginLeft="16dp"
+				android:layout_marginRight="8dp"
+				android:background="@color/md_indigo_200"/>
+
+	</LinearLayout>
+
+	<com.chrisplus.muselogger.ChartView
+			android:layout_alignParentBottom="true"
+			android:id="@+id/tp10view"
+			android:layout_width="match_parent"
+			android:layout_height="96dp"
+			android:layout_marginBottom="6dp"/>
+
+	<com.chrisplus.muselogger.ChartView
+			android:id="@+id/fp2view"
+			android:layout_width="match_parent"
+			android:layout_height="96dp"
+			android:layout_above="@id/tp10view"
+			android:layout_marginBottom="6dp"/>
+
+	<com.chrisplus.muselogger.ChartView
+			android:id="@+id/fp1view"
+			android:layout_width="match_parent"
+			android:layout_height="96dp"
+			android:layout_above="@id/fp2view"
+			android:layout_marginBottom="6dp"/>
+
+	<com.chrisplus.muselogger.ChartView
+			android:id="@+id/tp9view"
+			android:layout_width="match_parent"
+			android:layout_height="96dp"
+			android:layout_above="@id/fp1view"
+			android:layout_marginBottom="6dp"/>
+
+
+</RelativeLayout>
