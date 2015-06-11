@@ -8,7 +8,6 @@ import com.interaxon.libmuse.MuseDataPacketType;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -96,9 +95,9 @@ public class MainActivity extends ActionBarActivity {
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
-        tp9ChartView.setChart("TP9", R.color.md_indigo_500);
+        tp9ChartView.setChart("TP9", getResources().getColor(R.color.md_red_500));
         fp1ChartView.setChart("FP1", getResources().getColor(R.color.md_deep_purple_500));
-        fp2ChartView.setChart("FP2", getResources().getColor(R.color.md_teal_500));
+        fp2ChartView.setChart("FP2", getResources().getColor(R.color.md_indigo_500));
         tp10ChartView.setChart("TP10", getResources().getColor(R.color.md_deep_orange_500));
 
         connectAction.setOnClickListener(connectClickListener);
@@ -130,15 +129,29 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onEvent(final MuseDataPacket packet) {
-        if (packet != null && packet.getPacketType() == MuseDataPacketType.ALPHA_RELATIVE) {
+        if (packet != null && packet.getPacketType() == MuseDataPacketType.EEG) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("Hello", packet.getValues().get(0).floatValue() + "");
                     tp9ChartView.addEntry(packet.getValues().get(0).floatValue());
                     fp1ChartView.addEntry(packet.getValues().get(1).floatValue());
                     fp2ChartView.addEntry(packet.getValues().get(2).floatValue());
                     tp10ChartView.addEntry(packet.getValues().get(3).floatValue());
+                }
+            });
+        }
+    }
+
+    public void onEvent(final ArrayList<Double> horseshoe) {
+        if (horseshoe != null && horseshoe.size() == 4) {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    updateHorseshoe(tp9Status, horseshoe.get(0).intValue());
+                    updateHorseshoe(fp1Status, horseshoe.get(1).intValue());
+                    updateHorseshoe(fp2Status, horseshoe.get(2).intValue());
+                    updateHorseshoe(tp10Status, horseshoe.get(3).intValue());
                 }
             });
         }
@@ -196,6 +209,28 @@ public class MainActivity extends ActionBarActivity {
             connectAction.setText(R.string.btn_connect);
             connectAction.setTag(TAG_CONNECT);
         }
+    }
+
+    private void updateHorseshoe(View horseshoeView, int indicator) {
+        int bgColor = getResources().getColor(R.color.md_indigo_200);
+        switch (indicator) {
+            case 1:
+                bgColor = getResources().getColor(R.color.md_indigo_900);
+                break;
+            case 2:
+                bgColor = getResources().getColor(R.color.md_indigo_700);
+                break;
+            case 3:
+                bgColor = getResources().getColor(R.color.md_indigo_500);
+                break;
+            case 4:
+                bgColor = getResources().getColor(R.color.md_indigo_200);
+                break;
+            default:
+                break;
+        }
+
+        horseshoeView.setBackgroundColor(bgColor);
     }
 
 }

@@ -14,11 +14,15 @@ import android.util.AttributeSet;
  */
 public class ChartView extends LineChart {
 
-    public final static int MAX_VISIBLE_RANGE = 30;
+    public final static int MAX_VISIBLE_RANGE = Constants.getDefaultSamplingRate() * 2;
+
+    public final static int MAX_FLUSH_COUNT = Constants.getDefaultSamplingRate() / 5;
 
     private LineData data;
 
     private LineDataSet set;
+
+    private int flushCount = 0;
 
     public ChartView(Context context) {
         super(context);
@@ -47,16 +51,23 @@ public class ChartView extends LineChart {
         setPinchZoom(false);
         setDragEnabled(false);
         setTouchEnabled(false);
-        setVisibleXRange(MAX_VISIBLE_RANGE);
+
 
     }
 
     public void addEntry(float value) {
         data.addXValue(set.getEntryCount() + "");
         data.addEntry(new Entry(value, set.getEntryCount()), 0);
-        notifyDataSetChanged();
-        moveViewToX(data.getXValCount() - MAX_VISIBLE_RANGE - 1);
-        invalidate();
+        if (flushCount > MAX_FLUSH_COUNT) {
+            notifyDataSetChanged();
+            setVisibleXRange(MAX_VISIBLE_RANGE);
+            moveViewToX(data.getXValCount() - MAX_VISIBLE_RANGE - 1);
+            invalidate();
+            flushCount = 0;
+        }
+
+        ++flushCount;
+
     }
 
     private LineDataSet initSet(String name, int color) {

@@ -28,14 +28,16 @@
 				android:layout_height="wrap_content"
 				android:id="@+id/connectbtn"
 				android:layout_weight="1"
-				android:text="@string/btn_connect"/>
+				android:text="@string/btn_connect"
+				android:enabled="true"/>
 
 		<Button
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:id="@+id/recordbtn"
 				android:layout_weight="1"
-				android:text="@string/btn_record"/>
+				android:text="@string/btn_record"
+				android:enabled="false"/>
 	</LinearLayout>
 
 	<LinearLayout

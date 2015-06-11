@@ -74,7 +74,7 @@ public class MuseWrapper {
                 MuseDataPacketType.ACCELEROMETER);
 
         muse.registerDataListener(dataListener,
-                MuseDataPacketType.ALPHA_RELATIVE);
+                MuseDataPacketType.EEG);
         muse.registerDataListener(dataListener,
                 MuseDataPacketType.ARTIFACTS);
 
@@ -94,7 +94,7 @@ public class MuseWrapper {
         public void receiveMuseDataPacket(MuseDataPacket museDataPacket) {
             if (museDataPacket != null
                     && museDataPacket.getPacketType() == MuseDataPacketType.HORSESHOE) {
-//                EventBus.getDefault().post(museDataPacket.getValues());
+                EventBus.getDefault().post(museDataPacket.getValues());
             } else {
                 EventBus.getDefault().post(museDataPacket);
             }
