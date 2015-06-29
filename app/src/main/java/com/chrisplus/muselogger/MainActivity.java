@@ -7,7 +7,9 @@ import com.interaxon.libmuse.MuseDataPacket;
 import com.interaxon.libmuse.MuseDataPacketType;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,7 +20,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends FragmentActivity {
 
     public static final String TAG_CONNECT = "connect";
 
@@ -232,5 +234,5 @@ public class MainActivity extends ActionBarActivity {
 
         horseshoeView.setBackgroundColor(bgColor);
     }
-
+    
 }

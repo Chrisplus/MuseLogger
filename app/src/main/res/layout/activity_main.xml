@@ -4,21 +4,38 @@
                 android:layout_height="match_parent"
                 tools:context=".MainActivity">
 
-	<Spinner
-			android:id="@+id/spinner"
-			android:layout_alignParentTop="true"
-			android:layout_marginTop="6dp"
-			android:layout_marginLeft="16dp"
-			android:layout_marginRight="16dp"
-			android:layout_width="match_parent"
-			android:layout_height="64dp"/>
+
+	<LinearLayout android:layout_width="match_parent"
+	              android:layout_height="wrap_content"
+	              android:orientation="horizontal"
+	              android:id="@+id/config">
+		<Spinner
+				android:id="@+id/spinner"
+				android:layout_alignParentTop="true"
+				android:layout_marginTop="6dp"
+				android:layout_marginLeft="16dp"
+				android:layout_marginRight="16dp"
+				android:layout_width="0dp"
+				android:layout_height="64dp"
+				android:layout_weight="3"/>
+
+		<ImageView
+				android:id="@+id/setting"
+				android:layout_width="0dp"
+				android:layout_height="24dp"
+				android:src="@drawable/ic_settings_black_36dp"
+				android:layout_weight="1"
+				android:layout_gravity="center"
+				/>
+
+	</LinearLayout>
 
 	<LinearLayout
 			android:id="@+id/control"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="horizontal"
-			android:layout_below="@id/spinner"
+			android:layout_below="@id/config"
 			android:layout_marginLeft="16dp"
 			android:layout_marginRight="16dp"
 			android:layout_marginTop="8dp"
