@@ -6,13 +6,13 @@ import com.interaxon.libmuse.MuseConnectionPacket;
 import com.interaxon.libmuse.MuseDataPacket;
 import com.interaxon.libmuse.MuseDataPacketType;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -41,6 +41,8 @@ public class MainActivity extends FragmentActivity {
     private Button connectAction;
 
     private Button recordAction;
+
+    private ImageView settingAction;
 
     private View tp9Status;
 
@@ -77,6 +79,16 @@ public class MainActivity extends FragmentActivity {
         }
     };
 
+    private final View.OnClickListener settingClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if( v != null && TAG_CONNECT.equals(connectAction.getTag())){
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +101,8 @@ public class MainActivity extends FragmentActivity {
 
         connectAction = (Button) findViewById(R.id.connectbtn);
         recordAction = (Button) findViewById(R.id.recordbtn);
+
+        settingAction = (ImageView) findViewById(R.id.setting);
 
         tp9Status = findViewById(R.id.tp9indicator);
         fp1Status = findViewById(R.id.fp1indicator);
@@ -104,6 +118,7 @@ public class MainActivity extends FragmentActivity {
 
         connectAction.setOnClickListener(connectClickListener);
         recordAction.setOnClickListener(recordClickListener);
+        settingAction.setOnClickListener(settingClickListener);
     }
 
     @Override
@@ -234,5 +249,5 @@ public class MainActivity extends FragmentActivity {
 
         horseshoeView.setBackgroundColor(bgColor);
     }
-    
+
 }

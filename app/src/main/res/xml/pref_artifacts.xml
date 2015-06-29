@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<SwitchPreference
+			android:key="key_hide_horseshoe"
+			android:title="@string/pref_hide_horseshoe"
+			android:defaultValue="false"/>
+
+	<CheckBoxPreference
+			android:key="key_record_ref_drl"
+			android:title="@string/pref_record_ref_drl"
+			android:defaultValue="false"/>
+
+</PreferenceScreen>

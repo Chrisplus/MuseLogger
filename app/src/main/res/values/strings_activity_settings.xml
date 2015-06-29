@@ -1,0 +1,50 @@
+<resources>
+	<string name="title_activity_settings">Settings</string>
+
+
+
+
+	<!-- muselogger settings -->
+	<string name="pref_record_path">Records Root Path</string>
+	<string name="pref_default_record_path">/MuseLogger/</string>
+	<string name="pref_record_name_format">Record Name Format</string>
+
+	<string-array name="pref_record_name_format_titles">
+		<item>WAVE_TIMESTAMP_NOTE.csv</item>
+		<item>TIMESTAMP_WAVE_NOTE.csv</item>
+		<item>TIMESTAMP_NOTE_WAVE.csv</item>
+	</string-array>
+
+	<string-array name="pref_record_name_format_values">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+
+	<string name="pref_header_record_eeg">EEG Records</string>
+	<string name="pref_record_raw_eeg">RAW EEG</string>
+
+	<string name="pref_record_absolute_alpha">Absolute Alpha</string>
+	<string name="pref_record_relative_alpha">Relative Alpha</string>
+	<string name="pref_record_score_alpha">Alpha Score</string>
+
+	<string name="pref_record_absolute_beta">Absolute Beta</string>
+	<string name="pref_record_relative_beta">Relative Beta</string>
+	<string name="pref_record_score_beta">Beta Score</string>
+
+	<string name="pref_record_absolute_theta">Absolute Theta</string>
+	<string name="pref_record_relative_theta">Relative Theta</string>
+	<string name="pref_record_score_theta">Theta Score</string>
+
+	<string name="pref_record_absolute_gamma">Absolute Gamma</string>
+	<string name="pref_record_relative_gamma">Relative Gamma</string>
+	<string name="pref_record_score_gamma">Gamma Score</string>
+
+	<string name="pref_header_artifacts">Artifacts</string>
+	<string name="pref_hide_horseshoe">Hide Horseshoe</string>
+	<string name="pref_record_ref_drl">Record REF and DRL</string>
+
+	<string name="pref_header_other">Others</string>
+	<string name="pref_record_accelerometer">Record Acc.</string>
+
+</resources>

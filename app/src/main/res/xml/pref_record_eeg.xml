@@ -1,0 +1,62 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- A 'parent' preference, which enables/disables child preferences (below)
+		 when checked/unchecked. -->
+	<CheckBoxPreference
+			android:key="key_record_raw_eeg"
+			android:title="@string/pref_record_raw_eeg"
+			android:defaultValue="false"/>
+
+	<CheckBoxPreference
+			android:key="key_record_absolute_alpha"
+			android:title="@string/pref_record_absolute_alpha"
+			android:defaultValue="false"/>
+	<CheckBoxPreference
+			android:key="key_record_relative_alpha"
+			android:title="@string/pref_record_relative_alpha"
+			android:defaultValue="false"/>
+	<CheckBoxPreference
+			android:key="key_record_alpha_score"
+			android:title="@string/pref_record_score_alpha"
+			android:defaultValue="false"/>
+
+	<CheckBoxPreference
+			android:key="key_record_absolute_beta"
+			android:title="@string/pref_record_absolute_beta"
+			android:defaultValue="false"/>
+	<CheckBoxPreference
+			android:key="key_record_relative_beta"
+			android:title="@string/pref_record_relative_beta"
+			android:defaultValue="false"/>
+	<CheckBoxPreference
+			android:key="key_record_beta_score"
+			android:title="@string/pref_record_score_beta"
+			android:defaultValue="false"/>
+
+	<CheckBoxPreference
+			android:key="key_record_absolute_theta"
+			android:title="@string/pref_record_absolute_theta"
+			android:defaultValue="false"/>
+	<CheckBoxPreference
+			android:key="key_record_relative_theta"
+			android:title="@string/pref_record_relative_theta"
+			android:defaultValue="false"/>
+	<CheckBoxPreference
+			android:key="key_record_theta_score"
+			android:title="@string/pref_record_score_theta"
+			android:defaultValue="false"/>
+
+	<CheckBoxPreference
+			android:key="key_record_absolute_gamma"
+			android:title="@string/pref_record_absolute_gamma"
+			android:defaultValue="false"/>
+	<CheckBoxPreference
+			android:key="key_record_relative_gamma"
+			android:title="@string/pref_record_relative_gamma"
+			android:defaultValue="false"/>
+	<CheckBoxPreference
+			android:key="key_record_gamma_score"
+			android:title="@string/pref_record_score_gamma"
+			android:defaultValue="false"/>
+
+</PreferenceScreen>
