@@ -21,13 +21,11 @@ public class LoggingProcessor {
     public static final String FILE_FOLDER = Environment.getExternalStorageDirectory()
             .getAbsolutePath() + File.separator + "MuseLogger" + File.separator;
 
-    public static final String PX_EEG = "EEG_";
-
-    public static final String PX_ACC = "ACC_";
-
     public static final String PX_AA = "Absolute_Alpha_";
 
     public static final String PX_AB = "Absolute_Beta_";
+
+    public static final String PX_RAW = "Raw_EEG_";
 
     public static final String EX = ".csv";
 
@@ -68,7 +66,7 @@ public class LoggingProcessor {
         }
     }
 
-    public boolean isLogging(){
+    public boolean isLogging() {
         return EventBus.getDefault().isRegistered(this);
     }
 
@@ -78,13 +76,16 @@ public class LoggingProcessor {
 
         File absoluteAlpha = new File(dir, PX_AA + note + "_" + currentTime + EX);
         File absoluteBeta = new File(dir, PX_AB + note + "_" + currentTime + EX);
+        File rawEEG = new File(dir, PX_RAW + note + "_" + currentTime + EX);
 
         try {
             writers = new HashMap<>();
             FileWriter absoluteAlphaWriter = new FileWriter(absoluteAlpha);
             FileWriter absoluteBetaWriter = new FileWriter(absoluteBeta);
+            FileWriter rawEEGWriter = new FileWriter(rawEEG);
             writers.put(MuseDataPacketType.ALPHA_ABSOLUTE, absoluteAlphaWriter);
             writers.put(MuseDataPacketType.BETA_ABSOLUTE, absoluteBetaWriter);
+            writers.put(MuseDataPacketType.EEG, rawEEGWriter);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
