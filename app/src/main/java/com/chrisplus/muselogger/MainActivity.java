@@ -56,6 +56,8 @@ public class MainActivity extends FragmentActivity {
 
     private List<Muse> currentMuses;
 
+    private LoggingProcessor loggingProcessor;
+
     private final View.OnClickListener connectClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -75,14 +77,34 @@ public class MainActivity extends FragmentActivity {
     private final View.OnClickListener recordClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            v.setEnabled(false);
 
+            if (TAG_RECORD.equals(v.getTag())) {
+                getDefaultLoggingProcessor().startLogging("");
+
+                if (getDefaultLoggingProcessor().isLogging()) {
+                    v.setTag(TAG_STOP);
+                    ((Button) v).setText(getString(R.string.btn_stop));
+                }
+
+                v.setEnabled(true);
+            } else {
+                getDefaultLoggingProcessor().stopLogging();
+
+                if (!getDefaultLoggingProcessor().isLogging()) {
+                    v.setTag(TAG_RECORD);
+                    ((Button) v).setText(getString(R.string.btn_record));
+                }
+
+                v.setEnabled(true);
+            }
         }
     };
 
     private final View.OnClickListener settingClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if( v != null && TAG_CONNECT.equals(connectAction.getTag())){
+            if (v != null && TAG_CONNECT.equals(connectAction.getTag())) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
@@ -248,6 +270,14 @@ public class MainActivity extends FragmentActivity {
         }
 
         horseshoeView.setBackgroundColor(bgColor);
+    }
+
+    private LoggingProcessor getDefaultLoggingProcessor() {
+        if (loggingProcessor == null) {
+            loggingProcessor = new LoggingProcessor();
+        }
+
+        return loggingProcessor;
     }
 
 }

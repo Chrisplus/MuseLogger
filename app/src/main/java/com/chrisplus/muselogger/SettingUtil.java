@@ -12,7 +12,7 @@ public class SettingUtil {
         return getPreferenceString(context, context.getString(R.string.pref_record_path),
                 context.getString(R.string.pref_default_record_path));
     }
-    
+
 
     private static String getPreferenceString(Context context, String key, String defaultString) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(key, defaultString);

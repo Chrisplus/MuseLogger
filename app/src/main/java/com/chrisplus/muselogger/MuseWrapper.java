@@ -70,14 +70,16 @@ public class MuseWrapper {
     private void config(Muse muse) {
         muse.registerConnectionListener(connectionListener);
 
-        muse.registerDataListener(dataListener,
-                MuseDataPacketType.ACCELEROMETER);
+//        muse.registerDataListener(dataListener,
+//                MuseDataPacketType.ACCELEROMETER);
 
         muse.registerDataListener(dataListener,
                 MuseDataPacketType.EEG);
-        muse.registerDataListener(dataListener,
-                MuseDataPacketType.ARTIFACTS);
+//        muse.registerDataListener(dataListener,
+//                MuseDataPacketType.ARTIFACTS);
 
+        muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_ABSOLUTE);
+        muse.registerDataListener(dataListener, MuseDataPacketType.BETA_ABSOLUTE);
         muse.registerDataListener(dataListener, MuseDataPacketType.HORSESHOE);
 
         muse.setPreset(MusePreset.PRESET_14);
