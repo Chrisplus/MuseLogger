@@ -1,0 +1,18 @@
+language: android
+
+android:
+  components:
+  - build-tools-22.0.1
+  - android-21
+  - android-22
+  - extra-android-support
+  - extra-android-m2repository
+
+branches:
+  only:
+    - master
+
+notifications:
+  email: false
+
+script: './gradlew clean build'
