@@ -1,4 +1,4 @@
-# MuseLogger [![Build Status](https://travis-ci.org/Chrisplus/RootManager.svg?branch=master)](https://travis-ci.org/Chrisplus/RootManager)
+# MuseLogger [![Build Status](https://travis-ci.org/Chrisplus/MuseLogger.svg)](https://travis-ci.org/Chrisplus/MuseLogger)
 
 MuseLogger is a simple application reading, logging and visualizing EEG data from [*Muse head-hand*](http://www.choosemuse.com/) on Android phones for the purpose of data analyzing.
 
@@ -6,9 +6,9 @@ MuseLogger is based on the official SDK provided by Muse. For more information, 
 
 ## Features
 * search and connect to the Muse device.
-* log EEG data(currently includes raw eeg data, absolute alpha power and absolute beta power) in CSV format.
+* log EEG data (currently includes raw EEG data, absolute alpha band power and absolute beta band power) in CSV format.
 * indicate the status of each channel.
-* visualize EEG data on phones' screen in real time.
+* visualize EEG data on the phone's screen in real time.
 
 ## Screenshots
 <p align="center">
