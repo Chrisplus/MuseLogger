@@ -6,12 +6,16 @@ import com.interaxon.libmuse.MuseConnectionPacket;
 import com.interaxon.libmuse.MuseDataPacket;
 import com.interaxon.libmuse.MuseDataPacketType;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -80,7 +84,7 @@ public class MainActivity extends FragmentActivity {
             v.setEnabled(false);
 
             if (TAG_RECORD.equals(v.getTag())) {
-                getDefaultLoggingProcessor().startLogging("");
+                getDefaultLoggingProcessor().startLogging();
 
                 if (getDefaultLoggingProcessor().isLogging()) {
                     v.setTag(TAG_STOP);
@@ -97,6 +101,27 @@ public class MainActivity extends FragmentActivity {
                 }
 
                 v.setEnabled(true);
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(v.getContext());
+                dialogBuilder.setTitle(R.string.dialog_input_title);
+                final EditText input = new EditText(v.getContext());
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                dialogBuilder.setView(input);
+                dialogBuilder.setPositiveButton(R.string.dialog_input_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getDefaultLoggingProcessor().renameRecords(input.getText().toString());
+                    }
+                });
+                dialogBuilder.setNegativeButton(R.string.dialog_input_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                dialogBuilder.show();
+
             }
         }
     };
@@ -254,16 +279,16 @@ public class MainActivity extends FragmentActivity {
         int bgColor = getResources().getColor(R.color.md_indigo_200);
         switch (indicator) {
             case 1:
-                bgColor = getResources().getColor(R.color.md_indigo_900);
+                bgColor = getResources().getColor(R.color.md_green_900);
                 break;
             case 2:
-                bgColor = getResources().getColor(R.color.md_indigo_700);
+                bgColor = getResources().getColor(R.color.md_green_700);
                 break;
             case 3:
-                bgColor = getResources().getColor(R.color.md_indigo_500);
+                bgColor = getResources().getColor(R.color.md_green_500);
                 break;
             case 4:
-                bgColor = getResources().getColor(R.color.md_indigo_200);
+                bgColor = getResources().getColor(R.color.md_green_200);
                 break;
             default:
                 break;
@@ -276,7 +301,6 @@ public class MainActivity extends FragmentActivity {
         if (loggingProcessor == null) {
             loggingProcessor = new LoggingProcessor();
         }
-
         return loggingProcessor;
     }
 

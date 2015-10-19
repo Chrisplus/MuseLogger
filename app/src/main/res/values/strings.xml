@@ -1,12 +1,16 @@
 <resources>
-	<string name="app_name">MuseLogger</string>
+    <string name="app_name">MuseLogger</string>
 
-	<string name="hello_world">Hello world!</string>
-	<string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
-	<string name="btn_connect">Connect</string>
-	<string name="btn_disconnect">Disconnect</string>
-	<string name="btn_record">Record</string>
-	<string name="btn_stop">Stop</string>
-	<string name="btn_setting">Setting</string>
+    <string name="btn_connect">Connect</string>
+    <string name="btn_disconnect">Disconnect</string>
+    <string name="btn_record">Record</string>
+    <string name="btn_stop">Stop</string>
+    <string name="btn_setting">Setting</string>
+
+    <string name="dialog_input_title">Input the experiment note</string>
+    <string name="dialog_input_ok">OK</string>
+    <string name="dialog_input_cancel">Cancel</string>
 </resources>

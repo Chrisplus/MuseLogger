@@ -21,23 +21,27 @@ public class LoggingProcessor {
     public static final String FILE_FOLDER = Environment.getExternalStorageDirectory()
             .getAbsolutePath() + File.separator + "MuseLogger" + File.separator;
 
-    public static final String PX_AA = "Absolute_Alpha_";
+    public static final String PX_AA = "Absolute_Alpha";
 
-    public static final String PX_AB = "Absolute_Beta_";
+    public static final String PX_AB = "Absolute_Beta";
 
-    public static final String PX_RAW = "Raw_EEG_";
+    public static final String PX_RAW = "Raw_EEG";
 
     public static final String EX = ".csv";
 
     private HashMap<MuseDataPacketType, FileWriter> writers;
+
+    private File absoluteAlpha;
+    private File absoluteBeta;
+    private File rawEEG;
 
 
     public LoggingProcessor() {
 
     }
 
-    public void startLogging(String note) {
-        if (initWriters(note)) {
+    public void startLogging() {
+        if (initWriters()) {
             EventBus.getDefault().register(this);
         }
     }
@@ -70,13 +74,33 @@ public class LoggingProcessor {
         return EventBus.getDefault().isRegistered(this);
     }
 
-    private boolean initWriters(String note) {
+    public boolean renameRecords(String note) {
+        boolean rawEEGRename = false;
+        boolean absoluteAlphaRename = false;
+        boolean absoluteBetaRename = false;
+        if (rawEEG != null) {
+            rawEEGRename = rawEEG.renameTo(new File(rawEEG.getAbsolutePath() + "_" + note + EX));
+        }
+
+        if (absoluteAlpha != null) {
+            absoluteAlphaRename = absoluteAlpha.renameTo(new File(absoluteAlpha.getAbsolutePath() + "_" + note + EX));
+        }
+
+        if (absoluteBeta != null) {
+            absoluteBetaRename = absoluteBeta.renameTo(new File(absoluteBeta.getAbsolutePath() + "_" + note + EX));
+        }
+
+
+        return rawEEGRename && absoluteAlphaRename && absoluteBetaRename;
+    }
+
+    private boolean initWriters() {
         File dir = makeDir();
         long currentTime = System.currentTimeMillis();
 
-        File absoluteAlpha = new File(dir, PX_AA + note + "_" + currentTime + EX);
-        File absoluteBeta = new File(dir, PX_AB + note + "_" + currentTime + EX);
-        File rawEEG = new File(dir, PX_RAW + note + "_" + currentTime + EX);
+        absoluteAlpha = new File(dir, currentTime + "_" + PX_AA);
+        absoluteBeta = new File(dir, currentTime + "_" + PX_AB);
+        rawEEG = new File(dir, currentTime + "_" + PX_RAW);
 
         try {
             writers = new HashMap<>();
@@ -109,6 +133,7 @@ public class LoggingProcessor {
             }
 
             writers.clear();
+
         }
 
         return true;
