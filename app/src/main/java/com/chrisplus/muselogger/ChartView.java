@@ -8,6 +8,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 /**
  * Created by chrisplus on 6/9/15.
@@ -60,12 +61,10 @@ public class ChartView extends LineChart {
         data.addEntry(new Entry(value, set.getEntryCount()), 0);
         if (flushCount > MAX_FLUSH_COUNT) {
             notifyDataSetChanged();
-            setVisibleXRange(MAX_VISIBLE_RANGE);
+            setVisibleXRangeMaximum(MAX_VISIBLE_RANGE);
             moveViewToX(data.getXValCount() - MAX_VISIBLE_RANGE - 1);
-            invalidate();
             flushCount = 0;
         }
-
         ++flushCount;
 
     }
@@ -80,4 +79,5 @@ public class ChartView extends LineChart {
         set.setDrawValues(false);
         return set;
     }
+
 }
