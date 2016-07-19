@@ -1,7 +1,7 @@
 package com.chrisplus.muselogger;
 
-import com.interaxon.libmuse.MuseDataPacket;
-import com.interaxon.libmuse.MuseDataPacketType;
+import com.choosemuse.libmuse.MuseDataPacket;
+import com.choosemuse.libmuse.MuseDataPacketType;
 
 import android.os.Environment;
 
