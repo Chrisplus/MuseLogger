@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 22
@@ -26,8 +27,16 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.1.5'
-    compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.android.support:support-v4:22.2.0'
     compile files('libs/libmuse_android.jar')
+
+    compile 'com.jakewharton.timber:timber:4.1.2'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.5'
+    compile 'de.greenrobot:eventbus:2.4.0'
+
 }
