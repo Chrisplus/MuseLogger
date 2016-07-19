@@ -8,8 +8,8 @@ android {
         applicationId "com.chrisplus.muselogger"
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 1001
-        versionName "0.0.1"
+        versionCode project.version_code.toInteger()
+        versionName project.version_name
     }
     buildTypes {
         release {
