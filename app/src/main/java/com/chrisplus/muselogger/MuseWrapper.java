@@ -1,21 +1,20 @@
 package com.chrisplus.muselogger;
 
-import com.interaxon.libmuse.ConnectionState;
-import com.interaxon.libmuse.Muse;
-import com.interaxon.libmuse.MuseArtifactPacket;
-import com.interaxon.libmuse.MuseConnectionListener;
-import com.interaxon.libmuse.MuseConnectionPacket;
-import com.interaxon.libmuse.MuseDataListener;
-import com.interaxon.libmuse.MuseDataPacket;
-import com.interaxon.libmuse.MuseDataPacketType;
-import com.interaxon.libmuse.MuseManager;
-import com.interaxon.libmuse.MusePreset;
+
+import com.choosemuse.libmuse.ConnectionState;
+import com.choosemuse.libmuse.Muse;
+import com.choosemuse.libmuse.MuseArtifactPacket;
+import com.choosemuse.libmuse.MuseConnectionListener;
+import com.choosemuse.libmuse.MuseConnectionPacket;
+import com.choosemuse.libmuse.MuseDataListener;
+import com.choosemuse.libmuse.MuseDataPacket;
+import com.choosemuse.libmuse.MuseDataPacketType;
+import com.choosemuse.libmuse.MuseManagerAndroid;
+import com.choosemuse.libmuse.MusePreset;
 
 import android.content.Context;
 
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by chrisplus on 5/7/15.
@@ -45,9 +44,7 @@ public class MuseWrapper {
     }
 
     public List<Muse> getPairedMused() {
-        MuseManager.refreshPairedMuses();
-        return MuseManager.getPairedMuses();
-
+        return MuseManagerAndroid.getInstance().getMuses();
     }
 
     public void connect(Muse muse) {
@@ -80,7 +77,6 @@ public class MuseWrapper {
 
         muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_ABSOLUTE);
         muse.registerDataListener(dataListener, MuseDataPacketType.BETA_ABSOLUTE);
-        muse.registerDataListener(dataListener, MuseDataPacketType.HORSESHOE);
 
         muse.setPreset(MusePreset.PRESET_14);
         muse.enableDataTransmission(true);
@@ -93,18 +89,12 @@ public class MuseWrapper {
         }
 
         @Override
-        public void receiveMuseDataPacket(MuseDataPacket museDataPacket) {
-            if (museDataPacket != null
-                    && museDataPacket.getPacketType() == MuseDataPacketType.HORSESHOE) {
-                EventBus.getDefault().post(museDataPacket.getValues());
-            } else {
-                EventBus.getDefault().post(museDataPacket);
-            }
+        public void receiveMuseDataPacket(MuseDataPacket museDataPacket, Muse muse) {
 
         }
 
         @Override
-        public void receiveMuseArtifactPacket(MuseArtifactPacket museArtifactPacket) {
+        public void receiveMuseArtifactPacket(MuseArtifactPacket museArtifactPacket, Muse muse) {
 
         }
     }
@@ -116,8 +106,9 @@ public class MuseWrapper {
         }
 
         @Override
-        public void receiveMuseConnectionPacket(MuseConnectionPacket museConnectionPacket) {
-            EventBus.getDefault().post(museConnectionPacket);
+        public void receiveMuseConnectionPacket(MuseConnectionPacket museConnectionPacket, Muse
+                muse) {
+
         }
     }
 }

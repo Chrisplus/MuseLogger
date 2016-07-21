@@ -1,10 +1,10 @@
 package com.chrisplus.muselogger;
 
-import com.interaxon.libmuse.ConnectionState;
-import com.interaxon.libmuse.Muse;
-import com.interaxon.libmuse.MuseConnectionPacket;
-import com.interaxon.libmuse.MuseDataPacket;
-import com.interaxon.libmuse.MuseDataPacketType;
+import com.choosemuse.libmuse.ConnectionState;
+import com.choosemuse.libmuse.Muse;
+import com.choosemuse.libmuse.MuseConnectionPacket;
+import com.choosemuse.libmuse.MuseDataPacket;
+import com.choosemuse.libmuse.MuseDataPacketType;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -107,13 +107,15 @@ public class MainActivity extends FragmentActivity {
                 final EditText input = new EditText(v.getContext());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 dialogBuilder.setView(input);
-                dialogBuilder.setPositiveButton(R.string.dialog_input_ok, new DialogInterface.OnClickListener() {
+                dialogBuilder.setPositiveButton(R.string.dialog_input_ok, new DialogInterface
+                        .OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         getDefaultLoggingProcessor().renameRecords(input.getText().toString());
                     }
                 });
-                dialogBuilder.setNegativeButton(R.string.dialog_input_cancel, new DialogInterface.OnClickListener() {
+                dialogBuilder.setNegativeButton(R.string.dialog_input_cancel, new DialogInterface
+                        .OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -193,14 +195,14 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void onEvent(final MuseDataPacket packet) {
-        if (packet != null && packet.getPacketType() == MuseDataPacketType.EEG) {
+        if (packet != null && packet.packetType() == MuseDataPacketType.EEG) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    tp9ChartView.addEntry(packet.getValues().get(0).floatValue());
-                    fp1ChartView.addEntry(packet.getValues().get(1).floatValue());
-                    fp2ChartView.addEntry(packet.getValues().get(2).floatValue());
-                    tp10ChartView.addEntry(packet.getValues().get(3).floatValue());
+                    tp9ChartView.addEntry(packet.values().get(0).floatValue());
+                    fp1ChartView.addEntry(packet.values().get(1).floatValue());
+                    fp2ChartView.addEntry(packet.values().get(2).floatValue());
+                    tp10ChartView.addEntry(packet.values().get(3).floatValue());
                 }
             });
         }

@@ -53,14 +53,14 @@ public class LoggingProcessor {
 
     public void onEvent(final MuseDataPacket data) {
         if (writers != null && !writers.isEmpty()) {
-            FileWriter writer = writers.get(data.getPacketType());
+            FileWriter writer = writers.get(data.packetType());
 
             if (writer != null) {
                 try {
                     writer.write(
-                            getTimestamp() + "," + data.getValues().get(0) + "," + data.getValues()
-                                    .get(1) + "," + data.getValues().get(2) + ","
-                                    + data.getValues().get(3) + "\n");
+                            getTimestamp() + "," + data.values().get(0) + "," + data.values()
+                                    .get(1) + "," + data.values().get(2) + ","
+                                    + data.values().get(3) + "\n");
 
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -13,4 +13,10 @@
     <string name="dialog_input_title">Input the experiment note</string>
     <string name="dialog_input_ok">OK</string>
     <string name="dialog_input_cancel">Cancel</string>
+
+    <string name="eeg_channel_tp9">TP9</string>
+    <string name="eeg_channel_tp10">TP10</string>
+    <string name="eeg_channel_af7">AF7</string>
+    <string name="eeg_channel_af8">AF8</string>
+    <string name="eeg_channel_fpz">FPZ</string>
 </resources>

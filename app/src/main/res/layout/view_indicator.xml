@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/indicator_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/eeg_channel_fpz"
+            android:textColor="@color/black_text_secondary"
+            android:gravity="center"
+            android:textSize="8sp"
+            android:layout_alignParentBottom="true"
+            android:padding="4dp"/>
+    <View
+            android:id="@+id/indicator_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/indicator_name"
+            android:background="@drawable/drawable_indicator"/>
+</RelativeLayout>
