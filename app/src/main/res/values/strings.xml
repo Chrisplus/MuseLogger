@@ -19,4 +19,9 @@
     <string name="eeg_channel_af7">AF7</string>
     <string name="eeg_channel_af8">AF8</string>
     <string name="eeg_channel_fpz">FPZ</string>
+
+    <string name="dash_btn_instant_view">Instant View</string>
+    <string name="dash_btn_emotion">Emotion</string>
+    <string name="dash_btn_logger_view">Logger View</string>
+    <string name="dash_btn_settings">Settings</string>
 </resources>

@@ -23,4 +23,8 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="DashButtonView">
+        <attr name="dashIcon" format="reference"/>
+        <attr name="dashTitle" format="reference"/>
+    </declare-styleable>
 </resources>

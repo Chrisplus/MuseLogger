@@ -108,35 +108,38 @@
                 android:orientation="horizontal">
 
 
-            <TextView
-                    android:padding="16dp"
+            <com.chrisplus.muselogger.views.DashButtonView
+                    android:id="@+id/main_dash_instant"
+                    android:padding="8dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Instant Viewer"
-                    android:drawableTop="@drawable/ic_instantviewer"
-                    android:background="@drawable/drawable_dashboard_btn_bg"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    app:dashIcon="@drawable/ic_instantviewer"
+                    app:dashTitle="@string/dash_btn_instant_view"/>
 
             <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimaryDark"/>
-            <TextView
-                    android:padding="16dp"
+                    android:background="@color/md_blue_300"/>
+
+            <com.chrisplus.muselogger.views.DashButtonView
+                    android:id="@+id/main_dash_emotion"
+                    android:padding="8dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Instant Viewer"
-                    android:drawableTop="@drawable/ic_emotion"
-                    android:background="@drawable/drawable_dashboard_btn_bg"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    app:dashIcon="@drawable/ic_emotion"
+                    app:dashTitle="@string/dash_btn_emotion"/>
 
         </LinearLayout>
+
         <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorPrimaryDark"/>
+                android:background="@color/md_blue_300"/>
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -145,29 +148,30 @@
                 android:orientation="horizontal">
 
 
-            <TextView
-                    android:padding="16dp"
+            <com.chrisplus.muselogger.views.DashButtonView
+                    android:id="@+id/main_dash_logviewer"
+                    android:padding="8dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Instant Viewer"
-                    android:drawableTop="@drawable/ic_logviewer"
-                    android:background="@drawable/drawable_dashboard_btn_bg"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    app:dashIcon="@drawable/ic_logviewer"
+                    app:dashTitle="@string/dash_btn_logger_view"/>
 
             <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimaryDark"/>
-            <TextView
-                    android:padding="16dp"
+                    android:background="@color/md_blue_300"/>
+
+            <com.chrisplus.muselogger.views.DashButtonView
+                    android:id="@+id/main_dash_settings"
+                    android:padding="8dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Instant Viewer"
-                    android:drawableTop="@drawable/ic_setting"
-                    android:background="@drawable/drawable_dashboard_btn_bg"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    app:dashIcon="@drawable/ic_setting"
+                    app:dashTitle="@string/dash_btn_settings"/>
 
         </LinearLayout>
     </LinearLayout>

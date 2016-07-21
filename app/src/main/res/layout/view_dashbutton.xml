@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="4"
+              android:clickable="true"
+              android:background="@drawable/drawable_dashboard_btn_bg">
+    <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    <ImageView
+            android:id="@+id/dashbtn_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:src="@drawable/ic_emotion"
+            android:layout_gravity="center_horizontal"/>
+
+    <TextView
+            android:id="@+id/dashbtn_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dash_btn_emotion"
+            android:textSize="12sp"
+            android:textColor="@color/black_text_secondary"
+            android:padding="8dp"
+            android:gravity="center"/>
+    <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+
+</LinearLayout>
