@@ -35,12 +35,13 @@
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:layout_below="@id/main_upper_center"
-                      android:layout_marginTop="16dp"
                       android:layout_centerVertical="true"
                       android:weightSum="5"
+                      android:paddingTop="16dp"
                       android:orientation="horizontal">
 
             <com.chrisplus.muselogger.views.IndicatorView
+                    android:id="@+id/main_tp9_indicator"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
@@ -49,6 +50,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"/>
             <com.chrisplus.muselogger.views.IndicatorView
+                    android:id="@+id/main_af7_indicator"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
@@ -57,6 +59,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"/>
             <com.chrisplus.muselogger.views.IndicatorView
+                    android:id="@+id/main_fpz_indicator"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
@@ -65,6 +68,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"/>
             <com.chrisplus.muselogger.views.IndicatorView
+                    android:id="@+id/main_af8_indicator"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
@@ -73,6 +77,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"/>
             <com.chrisplus.muselogger.views.IndicatorView
+                    android:id="@+id/main_tp10_indicator"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"

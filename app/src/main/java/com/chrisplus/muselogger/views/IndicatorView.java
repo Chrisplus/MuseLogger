@@ -18,9 +18,9 @@ import butterknife.ButterKnife;
  */
 public class IndicatorView extends FrameLayout {
     @BindView(R.id.indicator_name)
-    private TextView indicatorName;
+    public TextView indicatorName;
     @BindView(R.id.indicator_view)
-    private View indicatorView;
+    public View indicatorView;
 
     private ElectrodeType electrodeType = ElectrodeType.FPZ;
 
@@ -35,7 +35,7 @@ public class IndicatorView extends FrameLayout {
         private int colorRes;
         private int nameRes;
 
-        ElectrodeType(int nameRes, int colorRes) {
+        ElectrodeType(int colorRes, int nameRes) {
             this.colorRes = colorRes;
             this.nameRes = nameRes;
         }
