@@ -48,7 +48,8 @@
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"/>
+                    android:paddingRight="16dp"
+                    app:type="tp9"/>
             <com.chrisplus.muselogger.views.IndicatorView
                     android:id="@+id/main_af7_indicator"
                     android:layout_width="0dp"
@@ -57,7 +58,8 @@
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"/>
+                    android:paddingRight="16dp"
+                    app:type="af7"/>
             <com.chrisplus.muselogger.views.IndicatorView
                     android:id="@+id/main_fpz_indicator"
                     android:layout_width="0dp"
@@ -66,7 +68,8 @@
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"/>
+                    android:paddingRight="16dp"
+                    app:type="fpz"/>
             <com.chrisplus.muselogger.views.IndicatorView
                     android:id="@+id/main_af8_indicator"
                     android:layout_width="0dp"
@@ -75,7 +78,8 @@
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"/>
+                    android:paddingRight="16dp"
+                    app:type="af8"/>
             <com.chrisplus.muselogger.views.IndicatorView
                     android:id="@+id/main_tp10_indicator"
                     android:layout_width="0dp"
@@ -84,7 +88,8 @@
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"/>
+                    android:paddingRight="16dp"
+                    app:type="tp10"/>
 
         </LinearLayout>
     </RelativeLayout>

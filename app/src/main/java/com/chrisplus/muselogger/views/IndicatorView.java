@@ -3,6 +3,7 @@ package com.chrisplus.muselogger.views;
 import com.chrisplus.muselogger.R;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -51,21 +52,21 @@ public class IndicatorView extends FrameLayout {
 
     public IndicatorView(Context context) {
         super(context);
-        initView();
+        initView(null);
     }
 
     public IndicatorView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initView();
+        initView(attrs);
     }
 
     public IndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initView();
+        initView(attrs);
     }
 
 
-    public void setType(ElectrodeType type) {
+    private void setType(ElectrodeType type) {
         electrodeType = type;
         indicatorName.setText(electrodeType.getNameRes());
         setColor(electrodeType.getColorRes(), false);
@@ -91,9 +92,20 @@ public class IndicatorView extends FrameLayout {
         }
     }
 
-    private void initView() {
+    private void initView(AttributeSet attrs) {
         LayoutInflater.from(getContext()).inflate(R.layout.view_indicator, this, true);
         ButterKnife.bind(this);
+        if (attrs != null) {
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable
+                    .IndicatorView, 0, 0);
+            try {
+                int typeIndex = typedArray.getInt(R.styleable.IndicatorView_type, ElectrodeType
+                        .FPZ.ordinal());
+                setType(ElectrodeType.values()[typeIndex]);
+            } finally {
+                typedArray.recycle();
+            }
+        }
     }
 
 

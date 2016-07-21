@@ -40,7 +40,6 @@ public class MainActivity_N extends AppCompatActivity {
         setContentView(R.layout.activity_main_new);
         setupActionBar();
         ButterKnife.bind(this);
-        initViews();
     }
 
     private void setupActionBar() {
@@ -53,11 +52,4 @@ public class MainActivity_N extends AppCompatActivity {
         }
     }
 
-    private void initViews() {
-        tp9Indicator.setType(IndicatorView.ElectrodeType.TP9);
-        af7Indicator.setType(IndicatorView.ElectrodeType.AF7);
-        fpzIndicator.setType(IndicatorView.ElectrodeType.FPZ);
-        af8Indicator.setType(IndicatorView.ElectrodeType.AF8);
-        tp10Indicator.setType(IndicatorView.ElectrodeType.TP10);
-    }
 }
