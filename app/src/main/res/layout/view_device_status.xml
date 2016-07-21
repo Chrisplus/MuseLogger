@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:clickable="true"
+              android:background="@drawable/drawable_dashboard_btn_bg">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_brain"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"/>
+
+    <FrameLayout android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:paddingStart="8dp">
+
+        <com.pnikosis.materialishprogress.ProgressWheel
+                android:id="@+id/device_status_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:matProg_barColor="@color/white"
+                app:matProg_progressIndeterminate="true"
+                app:matProg_barWidth="3dp"/>
+
+        <ImageView
+                android:id="@+id/device_status_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_disconnected"
+                android:padding="3dp"/>
+    </FrameLayout>
+
+
+</LinearLayout>

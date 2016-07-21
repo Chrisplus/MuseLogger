@@ -45,7 +45,12 @@ public class MainActivity_N extends AppCompatActivity {
     private void setupActionBar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setCustomView(R.layout.actionbar);
+
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
             TextView actionBarTitleView = (TextView) findViewById(R.id.actionbar_title);
             getSupportActionBar().setElevation(0);
             actionBarTitleView.setText(R.string.app_name);

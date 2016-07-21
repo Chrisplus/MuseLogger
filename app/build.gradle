@@ -35,6 +35,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.jakewharton:butterknife:8.2.1'
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+    compile 'com.pnikosis:materialish-progress:1.7'
 
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
