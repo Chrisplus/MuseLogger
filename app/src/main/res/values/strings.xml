@@ -32,5 +32,6 @@
     <string name="muse_connection_status_connecting">Connecting</string>
     <string name="muse_connection_status_disconnected">Disconnected</string>
     <string name="muse_connection_status_need_update">Need Update</string>
+    <string name="muse_available_list">Available Muse Devices:</string>
 
 </resources>

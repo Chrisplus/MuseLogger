@@ -5,6 +5,7 @@ import com.orhanobut.dialogplus.ListHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.BaseAdapter;
 
@@ -24,7 +25,8 @@ public class WidgetUtils {
 
         final DialogPlus dialogPlus = DialogPlus.newDialog(activityContext).setAdapter(adapter)
                 .setHeader(headerView).setContentHolder(listHolder).setOnItemClickListener
-                        (onItemClickListener).create();
+                        (onItemClickListener).setGravity(Gravity.TOP).create();
+
         return dialogPlus;
     }
 

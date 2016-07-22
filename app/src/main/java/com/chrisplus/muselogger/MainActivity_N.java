@@ -4,6 +4,7 @@ import com.chrisplus.muselogger.adapters.MuseListAdapter;
 import com.chrisplus.muselogger.fragments.DashboardFragment;
 import com.chrisplus.muselogger.utils.WidgetUtils;
 import com.chrisplus.muselogger.views.ActionBarView;
+import com.chrisplus.muselogger.views.MuseListHeaderView;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ListHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
@@ -20,6 +21,8 @@ public class MainActivity_N extends AppCompatActivity {
 
 
     private ActionBarView actionBarView;
+    private MuseListHeaderView headerView;
+
     private DialogPlus museDialog;
     private MuseListAdapter museListAdapter;
 
@@ -27,28 +30,39 @@ public class MainActivity_N extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard);
-        setupActionBar();
+        setupViews();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                 DashboardFragment.newInstance());
     }
 
-    private void setupActionBar() {
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MuseHelper.getInstance(this).stopListening();
+    }
+
+    private void setupViews() {
+        actionBarView = new ActionBarView(this);
+        actionBarView.setStatusOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleMuseDialog();
+            }
+        });
+
+        headerView = new MuseListHeaderView(this);
+        setupActionBar(actionBarView);
+    }
+
+    private void setupActionBar(ActionBarView abView) {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setElevation(0);
-            actionBarView = new ActionBarView(this);
-            actionBarView.setStatusOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    toggleMuseDialog();
-                }
-            });
-
-            getSupportActionBar().setCustomView(actionBarView);
+            getSupportActionBar().setCustomView(abView);
         }
     }
 
@@ -63,7 +77,7 @@ public class MainActivity_N extends AppCompatActivity {
                                 position) {
 
                         }
-                    }, null, this);
+                    }, headerView, this);
         }
 
         if (!museDialog.isShowing()) {
