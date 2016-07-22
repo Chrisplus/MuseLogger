@@ -1,5 +1,6 @@
 package com.chrisplus.muselogger;
 
+import com.choosemuse.libmuse.Muse;
 import com.chrisplus.muselogger.adapters.MuseListAdapter;
 import com.chrisplus.muselogger.fragments.DashboardFragment;
 import com.chrisplus.muselogger.utils.WidgetUtils;
@@ -13,6 +14,12 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import java.util.ArrayList;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by chrisplus on 19/7/16.
@@ -82,6 +89,29 @@ public class MainActivity_N extends AppCompatActivity {
 
         if (!museDialog.isShowing()) {
             museDialog.show();
+
+            MuseHelper.getInstance(this)
+                    .refreshMuseObservable().subscribeOn(Schedulers.newThread
+                    ()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ArrayList<Muse>>() {
+
+                        private ArrayList<Muse> tmpMuses = new ArrayList<Muse>();
+
+                        @Override
+                        public void onCompleted() {
+                            museListAdapter.setMuses(tmpMuses);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(ArrayList<Muse> muses) {
+                            tmpMuses.addAll(muses);
+                        }
+                    });
         } else {
             museDialog.dismiss();
         }
