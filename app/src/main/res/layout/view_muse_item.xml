@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/muse_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/muse_name_default"
+            android:textSize="18sp"
+            android:layout_alignParentLeft="true"
+            android:padding="2dp"/>
+
+    <TextView
+            android:id="@+id/muse_mac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/muse_name"
+            android:text="@string/muse_mac_default"
+            android:layout_alignBaseline="@id/muse_name"
+            android:padding="2dp"
+            android:textSize="12sp"/>
+
+    <TextView
+            android:id="@+id/muse_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/muse_connection_status_unknown"
+            android:layout_below="@id/muse_name"
+            android:textSize="14sp"
+            android:padding="2dp"/>
+
+</RelativeLayout>

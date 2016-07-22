@@ -25,6 +25,12 @@
     <string name="dash_btn_logger_view">Logger View</string>
     <string name="dash_btn_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="muse_name_default">Unknown Muse</string>
+    <string name="muse_mac_default">cannot get mac address</string>
+    <string name="muse_connection_status_unknown">Unknown Status</string>
+    <string name="muse_connection_status_connected">Connected</string>
+    <string name="muse_connection_status_connecting">Connecting</string>
+    <string name="muse_connection_status_disconnected">Disconnected</string>
+    <string name="muse_connection_status_need_update">Need Update</string>
+
 </resources>
