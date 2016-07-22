@@ -40,7 +40,7 @@ public class DashButtonView extends LinearLayout {
     }
 
     private void initView(AttributeSet attrs) {
-        LayoutInflater.from(getContext()).inflate(R.layout.view_dashbutton, this, true);
+        LayoutInflater.from(getContext()).inflate(R.layout.view_dash_button, this, true);
         ButterKnife.bind(this);
 
         if (attrs != null) {
