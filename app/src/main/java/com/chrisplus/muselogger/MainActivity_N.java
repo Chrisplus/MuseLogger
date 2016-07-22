@@ -1,17 +1,27 @@
 package com.chrisplus.muselogger;
 
+import com.chrisplus.muselogger.adapters.MuseListAdapter;
 import com.chrisplus.muselogger.fragments.DashboardFragment;
+import com.chrisplus.muselogger.utils.WidgetUtils;
+import com.chrisplus.muselogger.views.ActionBarView;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ListHolder;
+import com.orhanobut.dialogplus.OnItemClickListener;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.view.View;
 
 /**
  * Created by chrisplus on 19/7/16.
  */
 public class MainActivity_N extends AppCompatActivity {
 
+
+    private ActionBarView actionBarView;
+    private DialogPlus museDialog;
+    private MuseListAdapter museListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +36,40 @@ public class MainActivity_N extends AppCompatActivity {
     private void setupActionBar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setCustomView(R.layout.actionbar);
-
             getSupportActionBar().setDisplayShowCustomEnabled(true);
-            TextView actionBarTitleView = (TextView) findViewById(R.id.actionbar_title);
             getSupportActionBar().setElevation(0);
-            actionBarTitleView.setText(R.string.app_name);
+            actionBarView = new ActionBarView(this);
+            getSupportActionBar().setCustomView(actionBarView);
+
+            actionBarView.setStatusOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showMuseDialog();
+                }
+            });
+        }
+    }
+
+    private void showMuseDialog() {
+        if (museDialog == null) {
+            museListAdapter = new MuseListAdapter(this);
+            museDialog = WidgetUtils.buildListDialog(museListAdapter, new ListHolder(), new
+                    OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(DialogPlus dialog, Object item, View view, int
+                                position) {
+
+                        }
+                    }, null, this);
+        }
+
+        if (!museDialog.isShowing()) {
+            museDialog.show();
+        } else {
+            museDialog.dismiss();
         }
     }
 

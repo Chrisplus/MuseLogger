@@ -109,7 +109,7 @@ public class MuseListAdapter extends BaseAdapter {
 
     }
 
-    private static class MuseViewHolder {
+    public static class MuseViewHolder {
         @BindView(R.id.muse_name)
         public TextView nameView;
 

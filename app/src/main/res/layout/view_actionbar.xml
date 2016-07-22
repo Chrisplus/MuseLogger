@@ -12,6 +12,7 @@
             android:layout_centerInParent="true"/>
 
     <com.chrisplus.muselogger.views.DeviceStatusView
+            android:id="@+id/actionbar_status"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
