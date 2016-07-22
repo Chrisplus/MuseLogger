@@ -24,4 +24,7 @@
     <string name="dash_btn_emotion">Emotion</string>
     <string name="dash_btn_logger_view">Logger View</string>
     <string name="dash_btn_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
