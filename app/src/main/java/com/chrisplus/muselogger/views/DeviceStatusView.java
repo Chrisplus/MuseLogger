@@ -17,6 +17,9 @@ import butterknife.ButterKnife;
  */
 public class DeviceStatusView extends LinearLayout {
 
+    @BindView(R.id.device_icon)
+    public ImageView deviceIcon;
+
     @BindView(R.id.device_status_progress)
     public ProgressWheel deviceStatusProgress;
 
@@ -37,6 +40,7 @@ public class DeviceStatusView extends LinearLayout {
         super(context, attrs, defStyleAttr);
         initView();
     }
+
 
     private void initView() {
         LayoutInflater.from(getContext()).inflate(R.layout.view_device_status, this, true);

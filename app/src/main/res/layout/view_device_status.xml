@@ -4,10 +4,10 @@
               android:orientation="horizontal"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
-              android:clickable="true"
               android:background="@drawable/drawable_dashboard_btn_bg">
 
     <ImageView
+            android:id="@+id/device_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_brain"
@@ -31,6 +31,7 @@
                 android:id="@+id/device_status_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:visibility="visible"
                 android:src="@drawable/ic_disconnected"
                 android:padding="3dp"/>
     </FrameLayout>

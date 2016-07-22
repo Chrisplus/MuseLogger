@@ -41,18 +41,18 @@ public class MainActivity_N extends AppCompatActivity {
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setElevation(0);
             actionBarView = new ActionBarView(this);
-            getSupportActionBar().setCustomView(actionBarView);
-
             actionBarView.setStatusOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showMuseDialog();
+                    toggleMuseDialog();
                 }
             });
+
+            getSupportActionBar().setCustomView(actionBarView);
         }
     }
 
-    private void showMuseDialog() {
+    private void toggleMuseDialog() {
         if (museDialog == null) {
             museListAdapter = new MuseListAdapter(this);
             museDialog = WidgetUtils.buildListDialog(museListAdapter, new ListHolder(), new
