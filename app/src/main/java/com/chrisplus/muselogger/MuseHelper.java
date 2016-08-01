@@ -9,7 +9,6 @@ import com.choosemuse.libmuse.MuseDataPacket;
 import com.choosemuse.libmuse.MuseDataPacketType;
 import com.choosemuse.libmuse.MuseListener;
 import com.choosemuse.libmuse.MuseManagerAndroid;
-import com.orhanobut.logger.Logger;
 
 import android.content.Context;
 
@@ -117,7 +116,7 @@ public class MuseHelper {
             public void call(Subscriber<? super MuseDataPacket> subscriber) {
                 if (museManager != null) {
                     museDataListenerWrapper.setMuseDataPacketSubscriber(subscriber);
-                    muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType.EEG);
+                    muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType.BATTERY);
                 } else {
                     subscriber.onError(new Throwable(THROWABLE_NULL_MANAGER));
                     muse.unregisterAllListeners();

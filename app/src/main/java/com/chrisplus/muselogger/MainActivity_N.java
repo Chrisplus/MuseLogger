@@ -14,6 +14,7 @@ import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.logger.Logger;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,6 +31,7 @@ import rx.schedulers.Schedulers;
 public class MainActivity_N extends AppCompatActivity {
 
     public static final String TAG = MainActivity_N.class.getSimpleName();
+    public static final String TAG_CURRENT_FRAGMENT = "muselogger_current_fragment";
 
     private ActionBarView actionBarView;
     private MuseListHeaderView headerView;
@@ -44,7 +46,8 @@ public class MainActivity_N extends AppCompatActivity {
         setupViews();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
-                DashboardFragment.newInstance());
+                DashboardFragment.newInstance(), TAG_CURRENT_FRAGMENT).addToBackStack
+                (TAG_CURRENT_FRAGMENT);
     }
 
     @Override
@@ -57,6 +60,7 @@ public class MainActivity_N extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         listenMuseList();
+        getCurrentFrament();
     }
 
     private void setupViews() {
@@ -95,6 +99,16 @@ public class MainActivity_N extends AppCompatActivity {
         });
     }
 
+
+    private void listenMuseData(Muse muse) {
+        Fragment fragment = getCurrentFrament();
+
+        //TODO add fragment interface
+        if (fragment != null) {
+            ((DashboardFragment) fragment).setMuse(muse);
+        }
+    }
+
     private void listenMuseConnectionStatus(final Muse muse, final int position) {
         MuseHelper.getInstance(this).observeMuseConnectionStatus(muse).subscribeOn(Schedulers.io
                 ()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<MuseConnectionPacket>() {
@@ -107,6 +121,8 @@ public class MainActivity_N extends AppCompatActivity {
                 if (museConnectionPacket.getCurrentConnectionState() == ConnectionState.CONNECTED) {
                     toggleMuseDialog();
                     actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.CONNECTED);
+                    listenMuseData(muse);
+
                 } else if (museConnectionPacket.getCurrentConnectionState() == ConnectionState
                         .CONNECTING) {
                     actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.CONNECTING);
@@ -135,6 +151,15 @@ public class MainActivity_N extends AppCompatActivity {
             museDialog.show();
         } else {
             museDialog.dismiss();
+        }
+    }
+
+    private Fragment getCurrentFrament() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(TAG_CURRENT_FRAGMENT);
+        if (fragment != null && fragment.isVisible()) {
+            return fragment;
+        } else {
+            return null;
         }
     }
 
