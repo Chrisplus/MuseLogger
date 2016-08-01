@@ -1,6 +1,8 @@
 package com.chrisplus.muselogger;
 
+import com.choosemuse.libmuse.ConnectionState;
 import com.choosemuse.libmuse.Muse;
+import com.choosemuse.libmuse.MuseConnectionPacket;
 import com.chrisplus.muselogger.adapters.MuseListAdapter;
 import com.chrisplus.muselogger.fragments.DashboardFragment;
 import com.chrisplus.muselogger.utils.WidgetUtils;
@@ -9,6 +11,7 @@ import com.chrisplus.muselogger.views.MuseListHeaderView;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ListHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
+import com.orhanobut.logger.Logger;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -17,8 +20,8 @@ import android.view.View;
 
 import java.util.List;
 
-import rx.SingleSubscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -26,6 +29,7 @@ import rx.schedulers.Schedulers;
  */
 public class MainActivity_N extends AppCompatActivity {
 
+    public static final String TAG = MainActivity_N.class.getSimpleName();
 
     private ActionBarView actionBarView;
     private MuseListHeaderView headerView;
@@ -49,6 +53,12 @@ public class MainActivity_N extends AppCompatActivity {
         MuseHelper.getInstance(this).stopListening();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listenMuseList();
+    }
+
     private void setupViews() {
         actionBarView = new ActionBarView(this);
         actionBarView.setStatusOnClickListener(new View.OnClickListener() {
@@ -60,6 +70,7 @@ public class MainActivity_N extends AppCompatActivity {
 
         headerView = new MuseListHeaderView(this);
         setupActionBar(actionBarView);
+        museListAdapter = new MuseListAdapter(this);
     }
 
     private void setupActionBar(ActionBarView abView) {
@@ -73,37 +84,55 @@ public class MainActivity_N extends AppCompatActivity {
         }
     }
 
+    private void listenMuseList() {
+        MuseHelper.getInstance(this).observeMuseList().subscribeOn(Schedulers.io()).observeOn
+                (AndroidSchedulers.mainThread()).subscribe(new Action1<List<Muse>>() {
+            @Override
+            public void call(List<Muse> muses) {
+                museListAdapter.setMuses(muses);
+                actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.DISCONNECTED);
+            }
+        });
+    }
+
+    private void listenMuseConnectionStatus(final Muse muse, final int position) {
+        MuseHelper.getInstance(this).observeMuseConnectionStatus(muse).subscribeOn(Schedulers.io
+                ()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<MuseConnectionPacket>() {
+            @Override
+            public void call(MuseConnectionPacket museConnectionPacket) {
+                Logger.t(TAG).d("on muse connection status changed " + museConnectionPacket
+                        .getCurrentConnectionState().name());
+                museListAdapter.updateMuse(position, museConnectionPacket);
+
+                if (museConnectionPacket.getCurrentConnectionState() == ConnectionState.CONNECTED) {
+                    toggleMuseDialog();
+                    actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.CONNECTED);
+                } else if (museConnectionPacket.getCurrentConnectionState() == ConnectionState
+                        .CONNECTING) {
+                    actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.CONNECTING);
+                } else {
+                    actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.DISCONNECTED);
+                }
+            }
+        });
+    }
+
     private void toggleMuseDialog() {
         if (museDialog == null) {
-            museListAdapter = new MuseListAdapter(this);
             museDialog = WidgetUtils.buildListDialog(museListAdapter, new ListHolder(), new
                     OnItemClickListener() {
-
                         @Override
                         public void onItemClick(DialogPlus dialog, Object item, View view, int
                                 position) {
-
+                            Muse muse = museListAdapter.getItem(position);
+                            listenMuseConnectionStatus(muse, position);
+                            muse.runAsynchronously();
                         }
                     }, headerView, this);
         }
 
         if (!museDialog.isShowing()) {
-
             museDialog.show();
-
-            MuseHelper.getInstance(this).refreshMuses().subscribeOn(Schedulers.io()).observeOn
-                    (AndroidSchedulers.mainThread()).subscribe(new SingleSubscriber<List<Muse>>() {
-
-                @Override
-                public void onSuccess(List<Muse> value) {
-                    museListAdapter.setMuses(value);
-                }
-
-                @Override
-                public void onError(Throwable error) {
-
-                }
-            });
         } else {
             museDialog.dismiss();
         }

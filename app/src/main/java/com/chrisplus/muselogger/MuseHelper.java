@@ -7,15 +7,15 @@ import com.choosemuse.libmuse.MuseConnectionPacket;
 import com.choosemuse.libmuse.MuseDataListener;
 import com.choosemuse.libmuse.MuseDataPacket;
 import com.choosemuse.libmuse.MuseDataPacketType;
+import com.choosemuse.libmuse.MuseListener;
 import com.choosemuse.libmuse.MuseManagerAndroid;
+import com.orhanobut.logger.Logger;
 
 import android.content.Context;
 
 import java.util.List;
 
 import rx.Observable;
-import rx.Single;
-import rx.SingleSubscriber;
 import rx.Subscriber;
 
 /**
@@ -62,20 +62,31 @@ public class MuseHelper {
         return museManager.getMuses();
     }
 
-    public Single<List<Muse>> refreshMuses() {
-        return Single.create(new Single.OnSubscribe<List<Muse>>() {
+    public Observable<List<Muse>> observeMuseList() {
+        startListening();
+        return Observable.create(new Observable.OnSubscribe<List<Muse>>() {
             @Override
-            public void call(SingleSubscriber<? super List<Muse>> singleSubscriber) {
-                startListening();
-                singleSubscriber.onSuccess(museManager.getMuses());
+            public void call(final Subscriber<? super List<Muse>> subscriber) {
+                if (museManager != null) {
+                    final MuseListener museListener = new MuseListener() {
+                        @Override
+                        public void museListChanged() {
+                            subscriber.onNext(museManager.getMuses());
+                            stopListening();
+                        }
+                    };
+                    museManager.setMuseListener(museListener);
+                } else {
+                    subscriber.onError(new Throwable(THROWABLE_NULL_MANAGER));
+                }
             }
         });
     }
 
-    public Observable<MuseConnectionStatusPacket> observeMuseConnectionStatus(final Muse muse) {
-        return Observable.create(new Observable.OnSubscribe<MuseConnectionStatusPacket>() {
+    public Observable<MuseConnectionPacket> observeMuseConnectionStatus(final Muse muse) {
+        return Observable.create(new Observable.OnSubscribe<MuseConnectionPacket>() {
             @Override
-            public void call(final Subscriber<? super MuseConnectionStatusPacket> subscriber) {
+            public void call(final Subscriber<? super MuseConnectionPacket> subscriber) {
                 if (museManager != null) {
                     final MuseConnectionListener connectionListener = new MuseConnectionListener() {
                         @Override
@@ -85,8 +96,7 @@ public class MuseHelper {
                             if (subscriber.isUnsubscribed()) {
                                 muse.unregisterConnectionListener(this);
                             } else {
-                                subscriber.onNext(new MuseConnectionStatusPacket
-                                        (museConnectionPacket, muse));
+                                subscriber.onNext(museConnectionPacket);
                             }
                         }
                     };

@@ -1,6 +1,7 @@
 package com.chrisplus.muselogger.views;
 
 import com.chrisplus.muselogger.R;
+import com.orhanobut.logger.Logger;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -15,11 +16,19 @@ import butterknife.ButterKnife;
  * Created by chrisplus on 22/7/16.
  */
 public class ActionBarView extends RelativeLayout {
+    public static final String TAG = ActionBarView.class.getSimpleName();
+
     @BindView(R.id.actionbar_title)
     public TextView titleView;
 
     @BindView(R.id.actionbar_status)
     public DeviceStatusView statusView;
+
+    public enum DeviceStatus {
+        CONNECTED,
+        DISCONNECTED,
+        CONNECTING
+    }
 
     public ActionBarView(Context context) {
         super(context);
@@ -45,6 +54,23 @@ public class ActionBarView extends RelativeLayout {
             statusView.setOnClickListener(listener);
         }
     }
+
+    public void setDeviceStatus(DeviceStatus status) {
+        Logger.t(TAG).d(status.name());
+        switch (status) {
+            case CONNECTING:
+                statusView.setConnecting();
+                break;
+            case CONNECTED:
+                statusView.setConnected();
+                break;
+            case DISCONNECTED:
+            default:
+                statusView.setConnectError();
+                break;
+        }
+    }
+
 
     private void initViews() {
         LayoutInflater.from(getContext()).inflate(R.layout.view_actionbar, this, true);

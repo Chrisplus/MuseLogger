@@ -1,6 +1,8 @@
 package com.chrisplus.muselogger.adapters;
 
+import com.choosemuse.libmuse.ConnectionState;
 import com.choosemuse.libmuse.Muse;
+import com.choosemuse.libmuse.MuseConnectionPacket;
 import com.chrisplus.muselogger.R;
 
 import android.content.Context;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,6 +25,7 @@ public class MuseListAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private List<Muse> muses;
+    private HashMap<Integer, MuseConnectionPacket> statusMap;
 
     public MuseListAdapter(Context context) {
         inflater = LayoutInflater.from(context);
@@ -69,10 +73,12 @@ public class MuseListAdapter extends BaseAdapter {
         }
 
         Muse item = getItem(position);
+        ConnectionState itemConnectionStatus = getMuseConnectionState(position);
+
         if (item != null) {
             viewHolder.nameView.setText(item.getName());
             viewHolder.macView.setText(item.getMacAddress());
-            switch (item.getConnectionState()) {
+            switch (itemConnectionStatus) {
 
                 case NEEDS_UPDATE:
                     viewHolder.statusView.setText(R.string.muse_connection_status_need_update);
@@ -106,7 +112,28 @@ public class MuseListAdapter extends BaseAdapter {
             muses = museList;
             notifyDataSetChanged();
         }
+    }
 
+    private ConnectionState getMuseConnectionState(int position) {
+        Muse muse = getItem(position);
+        if (muse == null) {
+            return ConnectionState.UNKNOWN;
+        }
+
+        if (statusMap != null && statusMap.containsKey(position)) {
+            return statusMap.get(position).getCurrentConnectionState();
+        }
+
+        return muse.getConnectionState();
+    }
+
+    public void updateMuse(int position, MuseConnectionPacket museConnectionPacket) {
+        if (statusMap == null) {
+            statusMap = new HashMap<>();
+        }
+
+        statusMap.put(position, museConnectionPacket);
+        notifyDataSetChanged();
     }
 
     public static class MuseViewHolder {

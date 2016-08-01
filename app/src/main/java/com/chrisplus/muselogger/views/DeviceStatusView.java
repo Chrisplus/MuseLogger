@@ -46,4 +46,21 @@ public class DeviceStatusView extends LinearLayout {
         LayoutInflater.from(getContext()).inflate(R.layout.view_device_status, this, true);
         ButterKnife.bind(this);
     }
+
+    public void setConnecting() {
+        deviceStatusIcon.setVisibility(GONE);
+        deviceStatusProgress.setVisibility(VISIBLE);
+    }
+
+    public void setConnected() {
+        deviceStatusProgress.setVisibility(GONE);
+        deviceStatusIcon.setVisibility(VISIBLE);
+        deviceStatusIcon.setImageResource(R.drawable.ic_connected);
+    }
+
+    public void setConnectError() {
+        deviceStatusProgress.setVisibility(GONE);
+        deviceStatusIcon.setVisibility(VISIBLE);
+        deviceStatusIcon.setImageResource(R.drawable.ic_disconnected);
+    }
 }
