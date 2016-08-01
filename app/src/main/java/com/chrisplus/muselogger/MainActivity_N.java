@@ -15,9 +15,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import rx.Subscriber;
+import rx.SingleSubscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -88,30 +88,22 @@ public class MainActivity_N extends AppCompatActivity {
         }
 
         if (!museDialog.isShowing()) {
+
             museDialog.show();
 
-            MuseHelper.getInstance(this)
-                    .refreshMuseObservable().subscribeOn(Schedulers.newThread
-                    ()).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<ArrayList<Muse>>() {
+            MuseHelper.getInstance(this).refreshMuses().subscribeOn(Schedulers.io()).observeOn
+                    (AndroidSchedulers.mainThread()).subscribe(new SingleSubscriber<List<Muse>>() {
 
-                        private ArrayList<Muse> tmpMuses = new ArrayList<Muse>();
+                @Override
+                public void onSuccess(List<Muse> value) {
+                    museListAdapter.setMuses(value);
+                }
 
-                        @Override
-                        public void onCompleted() {
-                            museListAdapter.setMuses(tmpMuses);
-                        }
+                @Override
+                public void onError(Throwable error) {
 
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onNext(ArrayList<Muse> muses) {
-                            tmpMuses.addAll(muses);
-                        }
-                    });
+                }
+            });
         } else {
             museDialog.dismiss();
         }
