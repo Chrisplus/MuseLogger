@@ -91,7 +91,6 @@ public class DashboardFragment extends Fragment {
             @Override
             public void call(MuseDataPacket museDataPacket) {
                 if (museDataPacket.packetType() == MuseDataPacketType.BATTERY) {
-                    Logger.t(TAG).d("on battery info " + museDataPacket.values().get(0).intValue());
                     batteryIndicator.setProgress(museDataPacket.values().get(0).intValue());
                 }
             }

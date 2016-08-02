@@ -26,9 +26,9 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
                     app:arc_bottom_text="Battery"
-                    app:arc_unfinished_color="@color/colorPrimaryDark"
+                    app:arc_unfinished_color="@color/md_grey_300"
                     app:arc_text_color="@color/colorPrimaryDark"
-                    app:arc_finished_color="@color/md_green_500"
+                    app:arc_finished_color="@color/colorPrimaryDark"
             />
         </RelativeLayout>
 

@@ -42,12 +42,11 @@ public class MainActivity_N extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_dashboard);
+        setContentView(R.layout.activity_main_new);
         setupViews();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
-                DashboardFragment.newInstance(), TAG_CURRENT_FRAGMENT).addToBackStack
-                (TAG_CURRENT_FRAGMENT);
+                DashboardFragment.newInstance(), TAG_CURRENT_FRAGMENT).commit();
     }
 
     @Override
@@ -60,8 +59,8 @@ public class MainActivity_N extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         listenMuseList();
-        getCurrentFrament();
     }
+
 
     private void setupViews() {
         actionBarView = new ActionBarView(this);
