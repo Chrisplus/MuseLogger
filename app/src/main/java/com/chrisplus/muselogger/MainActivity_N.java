@@ -5,6 +5,7 @@ import com.choosemuse.libmuse.Muse;
 import com.choosemuse.libmuse.MuseConnectionPacket;
 import com.chrisplus.muselogger.adapters.MuseListAdapter;
 import com.chrisplus.muselogger.fragments.DashboardFragment;
+import com.chrisplus.muselogger.fragments.MuseMonitor;
 import com.chrisplus.muselogger.utils.WidgetUtils;
 import com.chrisplus.muselogger.views.ActionBarView;
 import com.chrisplus.muselogger.views.MuseListHeaderView;
@@ -100,11 +101,11 @@ public class MainActivity_N extends AppCompatActivity {
 
 
     private void listenMuseData(Muse muse) {
-        Fragment fragment = getCurrentFrament();
+        MuseMonitor museMonitor = getCurrentMuseMonitor();
 
         //TODO add fragment interface
-        if (fragment != null) {
-            ((DashboardFragment) fragment).setMuse(muse);
+        if (museMonitor != null) {
+            museMonitor.setTargetedMuse(muse);
         }
     }
 
@@ -153,10 +154,10 @@ public class MainActivity_N extends AppCompatActivity {
         }
     }
 
-    private Fragment getCurrentFrament() {
+    private MuseMonitor getCurrentMuseMonitor() {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(TAG_CURRENT_FRAGMENT);
         if (fragment != null && fragment.isVisible()) {
-            return fragment;
+            return (MuseMonitor) fragment;
         } else {
             return null;
         }

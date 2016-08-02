@@ -27,10 +27,10 @@ public class IndicatorView extends FrameLayout {
 
     public enum ElectrodeType {
 
-        TP9(R.color.md_indigo_700, R.string.eeg_channel_tp9),
-        TP10(R.color.md_teal_700, R.string.eeg_channel_tp10),
         AF7(R.color.md_green_700, R.string.eeg_channel_af7),
         AF8(R.color.md_purple_700, R.string.eeg_channel_af8),
+        TP9(R.color.md_indigo_700, R.string.eeg_channel_tp9),
+        TP10(R.color.md_teal_700, R.string.eeg_channel_tp10),
         FPZ(R.color.md_blue_700, R.string.eeg_channel_fpz);
 
         private int colorRes;

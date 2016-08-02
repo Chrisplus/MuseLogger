@@ -116,7 +116,11 @@ public class MuseHelper {
             public void call(Subscriber<? super MuseDataPacket> subscriber) {
                 if (museManager != null) {
                     museDataListenerWrapper.setMuseDataPacketSubscriber(subscriber);
+
                     muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType.BATTERY);
+                    muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType
+                            .HSI_PRECISION);
+
                 } else {
                     subscriber.onError(new Throwable(THROWABLE_NULL_MANAGER));
                     muse.unregisterAllListeners();

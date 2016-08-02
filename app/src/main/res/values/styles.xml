@@ -15,11 +15,13 @@
 
     <declare-styleable name="IndicatorView">
         <attr name="type" format="enum">
-            <enum name="tp9" value="0"/>
-            <enum name="af7" value="1"/>
-            <enum name="fpz" value="2"/>
-            <enum name="af8" value="3"/>
-            <enum name="tp10" value="4"/>
+
+            <enum name="af7" value="0"/>
+            <enum name="af8" value="1"/>
+            <enum name="tp9" value="2"/>
+            <enum name="tp10" value="3"/>
+            <enum name="fpz" value="4"/>
+
         </attr>
     </declare-styleable>
 

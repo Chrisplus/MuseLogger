@@ -28,7 +28,8 @@ import rx.schedulers.Schedulers;
 /**
  * Created by chrisplus on 22/7/16.
  */
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements MuseMonitor {
+
     public static final String TAG = DashboardFragment.class.getSimpleName();
 
     @BindView(R.id.dashboard_battery_indicator)
@@ -77,7 +78,8 @@ public class DashboardFragment extends Fragment {
         return view;
     }
 
-    public void setMuse(Muse muse) {
+    @Override
+    public void setTargetedMuse(Muse muse) {
         if (muse != null) {
             currentMuse = muse;
             listenMuseData(currentMuse);
@@ -102,4 +104,15 @@ public class DashboardFragment extends Fragment {
         super.onAttach(activity);
         context = activity;
     }
+
+    private void processMuseData(MuseDataPacket museDataPacket){
+        switch (museDataPacket.packetType()){
+            case BATTERY:
+                batteryIndicator.setProgress(museDataPacket.values().get(0).intValue());
+                break;
+            case HSI_PRECISION:
+                break;
+        }
+    }
+
 }
