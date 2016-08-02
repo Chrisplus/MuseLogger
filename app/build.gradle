@@ -41,7 +41,7 @@ dependencies {
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
     compile 'com.pnikosis:materialish-progress:1.7'
     compile 'com.orhanobut:dialogplus:1.11@aar'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
 
-    compile 'com.github.PhilJay:MPAndroidChart:v2.1.5'
     compile 'de.greenrobot:eventbus:2.4.0'
 }
