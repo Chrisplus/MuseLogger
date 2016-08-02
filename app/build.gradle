@@ -28,20 +28,17 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/libmuse_android.jar')
 
-
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
-
-
+    compile 'com.jakewharton:butterknife:8.2.1'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:support-v4:22.2.1'
     compile 'com.orhanobut:logger:1.15'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
-    compile 'com.jakewharton:butterknife:8.2.1'
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
     compile 'com.pnikosis:materialish-progress:1.7'
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
 
     compile 'de.greenrobot:eventbus:2.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 }

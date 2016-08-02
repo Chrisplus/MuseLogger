@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -48,6 +49,14 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
 
     @BindView(R.id.dashboard_dash_settings)
     public DashButtonView settingBtn;
+
+    @OnClick(R.id.dashboard_dash_instant)
+    public void openInstantView(DashButtonView view) {
+        getFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in_center, R.anim
+                .fade_out_center).replace(R.id.main_container, InstantViewFragment
+                .newInstance(currentMuse)).addToBackStack(InstantViewFragment.class.getSimpleName
+                ()).commit();
+    }
 
     public static DashboardFragment newInstance() {
         return new DashboardFragment();

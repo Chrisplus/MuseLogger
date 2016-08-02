@@ -62,6 +62,14 @@ public class MainActivity_N extends AppCompatActivity {
         listenMuseList();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+    }
 
     private void setupViews() {
         actionBarView = new ActionBarView(this);

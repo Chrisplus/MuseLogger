@@ -57,15 +57,6 @@ public class ChartView extends LineChart {
     }
 
     public void addEntry(float value) {
-        data.addXValue(set.getEntryCount() + "");
-        data.addEntry(new Entry(value, set.getEntryCount()), 0);
-        if (flushCount > MAX_FLUSH_COUNT) {
-            notifyDataSetChanged();
-            setVisibleXRangeMaximum(MAX_VISIBLE_RANGE);
-            moveViewToX(data.getXValCount() - MAX_VISIBLE_RANGE - 1);
-            flushCount = 0;
-        }
-        ++flushCount;
 
     }
 

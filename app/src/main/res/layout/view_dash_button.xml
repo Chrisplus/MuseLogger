@@ -4,7 +4,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:weightSum="4"
-              android:clickable="true"
               android:background="@drawable/drawable_dashboard_btn_bg">
     <Space
             android:layout_width="match_parent"
