@@ -2,7 +2,6 @@ package com.chrisplus.muselogger.fragments;
 
 import com.choosemuse.libmuse.Muse;
 import com.choosemuse.libmuse.MuseDataPacket;
-import com.choosemuse.libmuse.MuseDataPacketType;
 import com.chrisplus.muselogger.MuseHelper;
 import com.chrisplus.muselogger.R;
 import com.chrisplus.muselogger.views.DashButtonView;
@@ -36,7 +35,7 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
     public SquareArcView batteryIndicator;
 
     @BindView(R.id.dashboard_tp9_indicator)
-    public IndicatorView tpIndicator;
+    public IndicatorView tp9Indicator;
 
     @BindView(R.id.dashboard_af7_indicator)
     public IndicatorView af7Indicator;
@@ -86,15 +85,13 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
         }
     }
 
-    private void listenMuseData(Muse muse) {
+    private void listenMuseData(final Muse muse) {
         Logger.t(TAG).d("start listen muse data at dashboard fragment");
         MuseHelper.getInstance(context).observeMuseData(muse).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).subscribe(new Action1<MuseDataPacket>() {
             @Override
             public void call(MuseDataPacket museDataPacket) {
-                if (museDataPacket.packetType() == MuseDataPacketType.BATTERY) {
-                    batteryIndicator.setProgress(museDataPacket.values().get(0).intValue());
-                }
+                processMuseData(museDataPacket);
             }
         });
     }
@@ -105,14 +102,34 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
         context = activity;
     }
 
-    private void processMuseData(MuseDataPacket museDataPacket){
-        switch (museDataPacket.packetType()){
+    private void processMuseData(MuseDataPacket museDataPacket) {
+        switch (museDataPacket.packetType()) {
             case BATTERY:
                 batteryIndicator.setProgress(museDataPacket.values().get(0).intValue());
                 break;
             case HSI_PRECISION:
+                setIndicators(museDataPacket.values().get(0).intValue(), museDataPacket.values()
+                                .get(1).intValue(), museDataPacket.values().get(2).intValue(),
+                        museDataPacket.values().get(3).intValue());
                 break;
         }
     }
+
+    private void setIndicators(int tp9Level, int af7Level, int af8Level, int tp10Level) {
+        setIndicator(tp9Indicator, tp9Level == 1);
+        setIndicator(tp10Indicator, tp10Level == 1);
+        setIndicator(af7Indicator, af7Level == 1);
+        setIndicator(af8Indicator, af8Level == 1);
+        setIndicator(fpzIndicator, true);
+    }
+
+    private void setIndicator(IndicatorView indicator, boolean isGood) {
+        if (isGood) {
+            indicator.setFull();
+        } else {
+            indicator.setEmpty();
+        }
+    }
+
 
 }
