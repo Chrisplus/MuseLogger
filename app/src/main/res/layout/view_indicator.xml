@@ -15,6 +15,7 @@
             android:layout_alignParentBottom="true"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"/>
+
     <View
             android:id="@+id/indicator_view"
             android:layout_width="match_parent"

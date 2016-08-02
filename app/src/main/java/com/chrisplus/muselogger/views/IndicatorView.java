@@ -27,26 +27,32 @@ public class IndicatorView extends FrameLayout {
 
     public enum ElectrodeType {
 
-        AF7(R.color.md_green_700, R.string.eeg_channel_af7),
-        AF8(R.color.md_purple_700, R.string.eeg_channel_af8),
-        TP9(R.color.md_indigo_700, R.string.eeg_channel_tp9),
-        TP10(R.color.md_teal_700, R.string.eeg_channel_tp10),
-        FPZ(R.color.md_blue_700, R.string.eeg_channel_fpz);
+        AF7(R.color.md_green_700, R.color.md_green_300, R.string.eeg_channel_af7),
+        AF8(R.color.md_purple_700, R.color.md_purple_300, R.string.eeg_channel_af8),
+        TP9(R.color.md_indigo_700, R.color.md_indigo_300, R.string.eeg_channel_tp9),
+        TP10(R.color.md_teal_700, R.color.md_teal_300, R.string.eeg_channel_tp10),
+        FPZ(R.color.md_blue_700, R.color.md_blue_300, R.string.eeg_channel_fpz);
 
-        private int colorRes;
+        private int colorFullRes;
+        private int colorHalfRes;
         private int nameRes;
 
-        ElectrodeType(int colorRes, int nameRes) {
-            this.colorRes = colorRes;
+        ElectrodeType(int colorFullRes, int colorHalfRes, int nameRes) {
+            this.colorFullRes = colorFullRes;
+            this.colorHalfRes = colorHalfRes;
             this.nameRes = nameRes;
         }
 
-        public int getColorRes() {
-            return colorRes;
+        public int getColorFullRes() {
+            return colorFullRes;
         }
 
         public int getNameRes() {
             return nameRes;
+        }
+
+        public int getColorHalfRes() {
+            return colorHalfRes;
         }
     }
 
@@ -69,27 +75,27 @@ public class IndicatorView extends FrameLayout {
     private void setType(ElectrodeType type) {
         electrodeType = type;
         indicatorName.setText(electrodeType.getNameRes());
-        setColor(electrodeType.getColorRes(), false);
+        setEmpty();
     }
 
     public void setEmpty() {
-        setColor(electrodeType.getColorRes(), false);
+        setColor(R.color.md_grey_300);
     }
 
     public void setFull() {
-        setColor(electrodeType.getColorRes(), true);
+        setColor(electrodeType.getColorFullRes());
+    }
+
+    public void setHalf() {
+        setColor(electrodeType.getColorHalfRes());
     }
 
 
-    private void setColor(int colorRes, boolean isFull) {
+    private void setColor(int colorRes) {
         GradientDrawable shapeDrawable = (GradientDrawable) indicatorView.getBackground();
         shapeDrawable.setStroke(2, getResources().getColor(colorRes));
+        shapeDrawable.setColor(getResources().getColor(colorRes));
 
-        if (!isFull) {
-            shapeDrawable.setColor(getResources().getColor(R.color.md_grey_300));
-        } else {
-            shapeDrawable.setColor(getResources().getColor(colorRes));
-        }
     }
 
     private void initView(AttributeSet attrs) {

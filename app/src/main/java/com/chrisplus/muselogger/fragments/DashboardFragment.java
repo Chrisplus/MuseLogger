@@ -116,18 +116,23 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
     }
 
     private void setIndicators(int tp9Level, int af7Level, int af8Level, int tp10Level) {
-        setIndicator(tp9Indicator, tp9Level == 1);
-        setIndicator(tp10Indicator, tp10Level == 1);
-        setIndicator(af7Indicator, af7Level == 1);
-        setIndicator(af8Indicator, af8Level == 1);
-        setIndicator(fpzIndicator, true);
+        setIndicator(tp9Indicator, tp9Level);
+        setIndicator(tp10Indicator, tp10Level);
+        setIndicator(af7Indicator, af7Level);
+        setIndicator(af8Indicator, af8Level);
+        setIndicator(fpzIndicator, 1);
     }
 
-    private void setIndicator(IndicatorView indicator, boolean isGood) {
-        if (isGood) {
-            indicator.setFull();
-        } else {
-            indicator.setEmpty();
+    private void setIndicator(IndicatorView indicator, int level) {
+        switch (level) {
+            case 1:
+                indicator.setFull();
+                break;
+            case 2:
+                indicator.setHalf();
+                break;
+            default:
+                indicator.setEmpty();
         }
     }
 
