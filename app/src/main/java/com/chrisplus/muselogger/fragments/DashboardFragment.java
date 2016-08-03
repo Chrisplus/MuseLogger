@@ -53,7 +53,8 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
     @OnClick(R.id.dashboard_dash_instant)
     public void openInstantView(DashButtonView view) {
         getFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in_center, R.anim
-                .fade_out_center).replace(R.id.main_container, InstantViewFragment
+                .fade_out_center, R.anim.fade_in_center, R.anim.fade_out_center).replace(R.id
+                .main_container, InstantViewFragment
                 .newInstance(currentMuse)).addToBackStack(InstantViewFragment.class.getSimpleName
                 ()).commit();
     }
