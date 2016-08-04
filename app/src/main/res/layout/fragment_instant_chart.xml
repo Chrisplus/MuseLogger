@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    <com.github.mikephil.charting.charts.LineChart
+    <com.chrisplus.muselogger.views.EEGChartView
             android:id="@+id/instant_chart"
             android:layout_width="match_parent"
             android:layout_height="0dp"

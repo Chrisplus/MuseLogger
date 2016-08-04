@@ -4,8 +4,8 @@ import com.choosemuse.libmuse.Muse;
 import com.choosemuse.libmuse.MuseDataPacket;
 import com.chrisplus.muselogger.MuseHelper;
 import com.chrisplus.muselogger.R;
+import com.chrisplus.muselogger.views.EEGChartView;
 import com.chrisplus.muselogger.views.IndicatorArrayView;
-import com.github.mikephil.charting.charts.LineChart;
 import com.orhanobut.logger.Logger;
 
 import android.app.Activity;
@@ -35,7 +35,7 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
     public IndicatorArrayView indicatorArrayView;
 
     @BindView(R.id.instant_chart)
-    public LineChart charView;
+    public EEGChartView charView;
 
     private Context context;
     private Muse currentMuse;
@@ -53,6 +53,7 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
     Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_instant_chart, container, false);
         ButterKnife.bind(this, view);
+        charView.configRealtimeChart();
         return view;
     }
 
@@ -112,4 +113,23 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
                 break;
         }
     }
+
+    private void configChart() {
+        if (charView != null) {
+
+            charView.setNoDataText(getString(R.string.instant_no_data_tips));
+            charView.setTouchEnabled(false);
+            charView.setScaleEnabled(false);
+            charView.setDragEnabled(false);
+            charView.setPinchZoom(false);
+            charView.setDrawGridBackground(true);
+            charView.getXAxis().setDrawLabels(false);
+            charView.getAxisRight().setEnabled(false);
+        }
+    }
+
+    private void plotByChannel(MuseDataPacket museDataPacket) {
+
+    }
+
 }

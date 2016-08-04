@@ -34,4 +34,6 @@
     <string name="muse_connection_status_need_update">Need Update</string>
     <string name="muse_available_list">Available Muse Devices:</string>
 
+    <string name="instant_no_data_tips">NO EEG data feed</string>
+
 </resources>

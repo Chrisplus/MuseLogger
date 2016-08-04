@@ -90,7 +90,7 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
             listenMuseData(currentMuse);
         }
     }
-    
+
     @Override
     public void onDestroy() {
         super.onDestroy();
