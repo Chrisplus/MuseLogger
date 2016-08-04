@@ -39,7 +39,7 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
 
     private Context context;
     private Muse currentMuse;
-    private Subscription museSubscription;
+    private Subscription museDataSubscription;
 
     public static InstantViewFragment newInstance(Muse muse) {
         InstantViewFragment fragment = new InstantViewFragment();
@@ -60,6 +60,10 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
     public void setTargetedMuse(Muse muse) {
         if (muse != null) {
             currentMuse = muse;
+            if (museDataSubscription != null && !museDataSubscription.isUnsubscribed()) {
+                museDataSubscription.unsubscribe();
+            }
+
             listenMuseData(currentMuse);
         }
     }
@@ -81,14 +85,14 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
     @Override
     public void onPause() {
         super.onPause();
-        if (museSubscription != null) {
-            museSubscription.unsubscribe();
+        if (museDataSubscription != null) {
+            museDataSubscription.unsubscribe();
         }
     }
 
     private void listenMuseData(Muse muse) {
         Logger.t(TAG).d("start listen muse data at instant view fragment");
-        museSubscription = MuseHelper.getInstance(context).observeMuseData(muse).subscribeOn
+        museDataSubscription = MuseHelper.getInstance(context).observeMuseData(muse).subscribeOn
                 (Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<MuseDataPacket>() {
                     @Override

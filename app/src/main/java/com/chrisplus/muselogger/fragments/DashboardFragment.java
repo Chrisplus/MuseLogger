@@ -83,15 +83,14 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
     public void setTargetedMuse(Muse muse) {
         if (muse != null) {
             currentMuse = muse;
+            if (museDataSubscription != null && !museDataSubscription.isUnsubscribed()) {
+                museDataSubscription.unsubscribe();
+            }
+
             listenMuseData(currentMuse);
         }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
+    
     @Override
     public void onDestroy() {
         super.onDestroy();

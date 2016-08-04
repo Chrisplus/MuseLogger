@@ -22,6 +22,7 @@ import android.view.View;
 
 import java.util.List;
 
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -39,6 +40,7 @@ public class MainActivity_N extends AppCompatActivity {
 
     private DialogPlus museDialog;
     private MuseListAdapter museListAdapter;
+    private Subscription museConnectionSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,14 @@ public class MainActivity_N extends AppCompatActivity {
             super.onBackPressed();
         } else {
             getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (museConnectionSubscription != null) {
+            museConnectionSubscription.unsubscribe();
         }
     }
 
@@ -116,27 +126,31 @@ public class MainActivity_N extends AppCompatActivity {
     }
 
     private void listenMuseConnectionStatus(final Muse muse, final int position) {
-        MuseHelper.getInstance(this).observeMuseConnectionStatus(muse).subscribeOn(Schedulers.io
-                ()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<MuseConnectionPacket>() {
-            @Override
-            public void call(MuseConnectionPacket museConnectionPacket) {
-                Logger.t(TAG).d("on muse connection status changed " + museConnectionPacket
-                        .getCurrentConnectionState().name());
-                museListAdapter.updateMuse(position, museConnectionPacket);
+        if (museConnectionSubscription == null || museConnectionSubscription.isUnsubscribed()) {
+            museConnectionSubscription = MuseHelper.getInstance(this).observeMuseConnectionStatus
+                    (muse).subscribeOn(Schedulers.io
+                    ()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<MuseConnectionPacket>() {
+                @Override
+                public void call(MuseConnectionPacket museConnectionPacket) {
+                    Logger.t(TAG).d("on muse connection status changed " + museConnectionPacket
+                            .getCurrentConnectionState().name());
+                    museListAdapter.updateMuse(position, museConnectionPacket);
 
-                if (museConnectionPacket.getCurrentConnectionState() == ConnectionState.CONNECTED) {
-                    toggleMuseDialog();
-                    actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.CONNECTED);
-                    setMuseMonitor(muse);
+                    if (museConnectionPacket.getCurrentConnectionState() == ConnectionState
+                            .CONNECTED) {
+                        toggleMuseDialog();
+                        actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.CONNECTED);
+                        setMuseMonitor(muse);
 
-                } else if (museConnectionPacket.getCurrentConnectionState() == ConnectionState
-                        .CONNECTING) {
-                    actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.CONNECTING);
-                } else {
-                    actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.DISCONNECTED);
+                    } else if (museConnectionPacket.getCurrentConnectionState() == ConnectionState
+                            .CONNECTING) {
+                        actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.CONNECTING);
+                    } else {
+                        actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.DISCONNECTED);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     private void toggleMuseDialog() {
