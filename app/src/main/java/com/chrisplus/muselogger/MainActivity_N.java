@@ -108,10 +108,8 @@ public class MainActivity_N extends AppCompatActivity {
     }
 
 
-    private void listenMuseData(Muse muse) {
+    private void setMuseMonitor(Muse muse) {
         MuseMonitor museMonitor = getCurrentMuseMonitor();
-
-        //TODO add fragment interface
         if (museMonitor != null) {
             museMonitor.setTargetedMuse(muse);
         }
@@ -129,7 +127,7 @@ public class MainActivity_N extends AppCompatActivity {
                 if (museConnectionPacket.getCurrentConnectionState() == ConnectionState.CONNECTED) {
                     toggleMuseDialog();
                     actionBarView.setDeviceStatus(ActionBarView.DeviceStatus.CONNECTED);
-                    listenMuseData(muse);
+                    setMuseMonitor(muse);
 
                 } else if (museConnectionPacket.getCurrentConnectionState() == ConnectionState
                         .CONNECTING) {

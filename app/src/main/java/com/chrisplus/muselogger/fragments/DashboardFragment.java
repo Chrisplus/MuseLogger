@@ -2,6 +2,7 @@ package com.chrisplus.muselogger.fragments;
 
 import com.choosemuse.libmuse.Muse;
 import com.choosemuse.libmuse.MuseDataPacket;
+import com.chrisplus.muselogger.MainActivity_N;
 import com.chrisplus.muselogger.MuseHelper;
 import com.chrisplus.muselogger.R;
 import com.chrisplus.muselogger.views.DashButtonView;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -55,8 +57,9 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
         getFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in_center, R.anim
                 .fade_out_center, R.anim.fade_in_center, R.anim.fade_out_center).replace(R.id
                 .main_container, InstantViewFragment
-                .newInstance(currentMuse)).addToBackStack(InstantViewFragment.class.getSimpleName
-                ()).commit();
+                .newInstance(currentMuse), MainActivity_N.TAG_CURRENT_FRAGMENT).addToBackStack
+                (InstantViewFragment.class.getSimpleName
+                        ()).commit();
     }
 
     public static DashboardFragment newInstance() {
@@ -65,6 +68,7 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
 
     private Context context;
     private Muse currentMuse;
+    private Subscription museDataSubscription;
 
     @Nullable
     @Override
@@ -83,9 +87,23 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (museDataSubscription != null) {
+            museDataSubscription.unsubscribe();
+        }
+    }
+
     private void listenMuseData(final Muse muse) {
         Logger.t(TAG).d("start listen muse data at dashboard fragment");
-        MuseHelper.getInstance(context).observeMuseData(muse).subscribeOn(Schedulers.io()).observeOn
+        museDataSubscription = MuseHelper.getInstance(context).observeMuseData(muse).subscribeOn
+                (Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).subscribe(new Action1<MuseDataPacket>() {
             @Override
             public void call(MuseDataPacket museDataPacket) {

@@ -9,9 +9,11 @@ import com.choosemuse.libmuse.MuseDataPacket;
 import com.choosemuse.libmuse.MuseDataPacketType;
 import com.choosemuse.libmuse.MuseListener;
 import com.choosemuse.libmuse.MuseManagerAndroid;
+import com.orhanobut.logger.Logger;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -115,7 +117,7 @@ public class MuseHelper {
             @Override
             public void call(Subscriber<? super MuseDataPacket> subscriber) {
                 if (museManager != null) {
-                    museDataListenerWrapper.setMuseDataPacketSubscriber(subscriber);
+                    museDataListenerWrapper.addMuseDataPacketSubscriber(subscriber);
 
                     muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType.BATTERY);
                     muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType
@@ -134,7 +136,7 @@ public class MuseHelper {
             @Override
             public void call(Subscriber<? super MuseArtifactPacket> subscriber) {
                 if (museManager != null) {
-                    museDataListenerWrapper.setMuseArtifactPacketSubscriber(subscriber);
+                    museDataListenerWrapper.addMuseArtifactPacketSubscriber(subscriber);
                     muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType
                             .ARTIFACTS);
                 } else {
@@ -157,34 +159,56 @@ public class MuseHelper {
 
     public class MuseDataListenerWrapper extends MuseDataListener {
 
-        public Subscriber<? super MuseDataPacket> museDataPacketSubscriber;
-        public Subscriber<? super MuseArtifactPacket> museArtifactPacketSubscriber;
+        public List<Subscriber> museDataPacketSubscribers;
+        public List<Subscriber> museArtifactPacketSubscribers;
 
 
         @Override
         public void receiveMuseDataPacket(MuseDataPacket museDataPacket, Muse muse) {
-            if (museDataPacketSubscriber != null && !museDataPacketSubscriber.isUnsubscribed()) {
-                museDataPacketSubscriber.onNext(museDataPacket);
+            if (museDataPacketSubscribers != null) {
+                for (Subscriber subscriber : museDataPacketSubscribers) {
+                    if (!subscriber.isUnsubscribed()) {
+                        subscriber.onNext(museDataPacket);
+                    } else {
+                        Logger.t(TAG).d("remove the subscriber ");
+                        museDataPacketSubscribers.remove(subscriber);
+                    }
+                }
             }
         }
 
         @Override
         public void receiveMuseArtifactPacket(MuseArtifactPacket museArtifactPacket, Muse muse) {
-            if (museArtifactPacketSubscriber != null && !museDataPacketSubscriber.isUnsubscribed
-                    ()) {
-                museArtifactPacketSubscriber.onNext(museArtifactPacket);
+            if (museArtifactPacketSubscribers != null) {
+                for (Subscriber subscriber : museArtifactPacketSubscribers) {
+                    if (!subscriber.isUnsubscribed()) {
+                        subscriber.onNext(museArtifactPacket);
+                    } else {
+                        museArtifactPacketSubscribers.remove(subscriber);
+                    }
+                }
             }
 
         }
 
-        public void setMuseDataPacketSubscriber(Subscriber<? super MuseDataPacket>
+        public void addMuseDataPacketSubscriber(Subscriber<? super MuseDataPacket>
                                                         museDataPacketSubscriber) {
-            this.museDataPacketSubscriber = museDataPacketSubscriber;
+            if (museDataPacketSubscribers == null) {
+                museDataPacketSubscribers = new ArrayList<>();
+            }
+
+            museDataPacketSubscribers.add(museDataPacketSubscriber);
+            Logger.t(TAG).d("add new muse data subscriber, new list size " +
+                    museDataPacketSubscribers.size());
         }
 
-        public void setMuseArtifactPacketSubscriber(Subscriber<? super MuseArtifactPacket>
+        public void addMuseArtifactPacketSubscriber(Subscriber<? super MuseArtifactPacket>
                                                             museArtifactPacketSubscriber) {
-            this.museArtifactPacketSubscriber = museArtifactPacketSubscriber;
+            if (museArtifactPacketSubscribers == null) {
+                museArtifactPacketSubscribers = new ArrayList<>();
+            }
+
+            museArtifactPacketSubscribers.add(museArtifactPacketSubscriber);
         }
     }
 

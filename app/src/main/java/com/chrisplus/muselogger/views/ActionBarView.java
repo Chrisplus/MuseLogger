@@ -1,7 +1,6 @@
 package com.chrisplus.muselogger.views;
 
 import com.chrisplus.muselogger.R;
-import com.orhanobut.logger.Logger;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -56,7 +55,6 @@ public class ActionBarView extends RelativeLayout {
     }
 
     public void setDeviceStatus(DeviceStatus status) {
-        Logger.t(TAG).d(status.name());
         switch (status) {
             case CONNECTING:
                 statusView.setConnecting();
