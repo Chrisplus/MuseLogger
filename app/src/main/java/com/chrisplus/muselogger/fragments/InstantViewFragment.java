@@ -53,7 +53,9 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
     Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_instant_chart, container, false);
         ButterKnife.bind(this, view);
+
         charView.configRealtimeChart();
+        charView.setMode(EEGChartView.ChartMode.RAW_EEG);
         return view;
     }
 
@@ -111,25 +113,19 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
                                 .get(1).intValue(), museDataPacket.values().get(2).intValue(),
                         museDataPacket.values().get(3).intValue());
                 break;
+            case EEG:
+                plotEEG(museDataPacket);
+                break;
         }
     }
 
-    private void configChart() {
+
+    private void plotEEG(MuseDataPacket museDataPacket) {
         if (charView != null) {
-
-            charView.setNoDataText(getString(R.string.instant_no_data_tips));
-            charView.setTouchEnabled(false);
-            charView.setScaleEnabled(false);
-            charView.setDragEnabled(false);
-            charView.setPinchZoom(false);
-            charView.setDrawGridBackground(true);
-            charView.getXAxis().setDrawLabels(false);
-            charView.getAxisRight().setEnabled(false);
+            charView.plot(museDataPacket.values().get(0).floatValue(), museDataPacket.values()
+                            .get(1).floatValue(), museDataPacket.values().get(2).floatValue(),
+                    museDataPacket.values().get(3).floatValue());
         }
-    }
-
-    private void plotByChannel(MuseDataPacket museDataPacket) {
-
     }
 
 }

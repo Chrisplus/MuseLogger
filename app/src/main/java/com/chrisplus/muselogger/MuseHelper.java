@@ -122,6 +122,7 @@ public class MuseHelper {
                     muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType.BATTERY);
                     muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType
                             .HSI_PRECISION);
+                    muse.registerDataListener(museDataListenerWrapper, MuseDataPacketType.EEG);
 
                 } else {
                     subscriber.onError(new Throwable(THROWABLE_NULL_MANAGER));

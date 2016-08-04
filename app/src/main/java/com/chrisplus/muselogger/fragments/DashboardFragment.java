@@ -102,13 +102,13 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
     private void listenMuseData(final Muse muse) {
         Logger.t(TAG).d("start listen muse data at dashboard fragment");
         museDataSubscription = MuseHelper.getInstance(context).observeMuseData(muse).subscribeOn
-                (Schedulers.io()).observeOn
-                (AndroidSchedulers.mainThread()).subscribe(new Action1<MuseDataPacket>() {
-            @Override
-            public void call(MuseDataPacket museDataPacket) {
-                processMuseData(museDataPacket);
-            }
-        });
+                (Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<MuseDataPacket>() {
+                    @Override
+                    public void call(MuseDataPacket museDataPacket) {
+                        processMuseData(museDataPacket);
+                    }
+                });
     }
 
     @Override
