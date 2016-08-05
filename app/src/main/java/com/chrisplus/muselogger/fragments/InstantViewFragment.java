@@ -16,11 +16,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -38,6 +40,14 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
 
     @BindView(R.id.instant_chart)
     public EEGChartView charView;
+
+    @BindView(R.id.instant_action_btn)
+    public Button actionBtn;
+
+    @OnClick(R.id.instant_action_btn)
+    public void onClickActionBtn(Button button) {
+        SnackBar
+    }
 
     private Context context;
     private Muse currentMuse;
