@@ -19,6 +19,7 @@ public class ChartUtils {
         lineDataSet.setDrawCircles(false);
         lineDataSet.setDrawValues(false);
         lineDataSet.setColor(color);
+        lineDataSet.setLineWidth(2f);
         return lineDataSet;
     }
 

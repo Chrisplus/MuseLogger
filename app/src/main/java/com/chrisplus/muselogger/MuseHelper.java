@@ -55,8 +55,8 @@ public class MuseHelper {
         if (museManager != null) {
             museManager.stopListening();
         }
-
     }
+
 
     public List<Muse> refreshMuse() {
         startListening();

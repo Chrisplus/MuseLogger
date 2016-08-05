@@ -2,6 +2,7 @@ package com.chrisplus.muselogger.fragments;
 
 import com.choosemuse.libmuse.Muse;
 import com.choosemuse.libmuse.MuseDataPacket;
+import com.choosemuse.libmuse.MuseDataPacketType;
 import com.chrisplus.muselogger.MainActivity_N;
 import com.chrisplus.muselogger.MuseHelper;
 import com.chrisplus.muselogger.R;
@@ -19,14 +20,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -106,7 +106,13 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
         museDataSubscription = MuseHelper.getInstance(context)
                 .observeMuseData(muse)
                 .subscribeOn(Schedulers.io())
-                .sample(500, TimeUnit.MILLISECONDS)
+                .filter(new Func1<MuseDataPacket, Boolean>() {
+                    @Override
+                    public Boolean call(MuseDataPacket museDataPacket) {
+                        return (museDataPacket.packetType() == MuseDataPacketType.BATTERY) ||
+                                (museDataPacket.packetType() == MuseDataPacketType.HSI_PRECISION);
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<MuseDataPacket>() {
                     @Override

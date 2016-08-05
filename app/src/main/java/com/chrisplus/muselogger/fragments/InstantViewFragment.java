@@ -100,7 +100,7 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
         museDataSubscription = MuseHelper.getInstance(context)
                 .observeMuseData(muse)
                 .subscribeOn(Schedulers.io())
-                .sample(50, TimeUnit.MILLISECONDS)
+                .sample(10, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<MuseDataPacket>() {
                     @Override
