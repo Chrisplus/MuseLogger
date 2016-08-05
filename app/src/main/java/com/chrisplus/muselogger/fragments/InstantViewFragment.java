@@ -16,14 +16,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemSelected;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -42,22 +39,9 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
     @BindView(R.id.instant_chart)
     public EEGChartView charView;
 
-    @BindView(R.id.instant_mode_snipper)
-    public Spinner modeSpinner;
-
-    @OnItemSelected(R.id.instant_mode_snipper)
-    public void onItemSelected(int position) {
-        if (position != currenModePostion) {
-            Logger.t(TAG).d("set a new chart mode " + position);
-            currenModePostion = position;
-            charView.setMode(EEGChartView.ChartMode.values()[currenModePostion]);
-        }
-    }
-
     private Context context;
     private Muse currentMuse;
     private Subscription museDataSubscription;
-    private int currenModePostion = 0;
 
     public static InstantViewFragment newInstance(Muse muse) {
         InstantViewFragment fragment = new InstantViewFragment();
@@ -74,9 +58,7 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
 
         charView.configRealtimeChart();
         charView.setMode(EEGChartView.ChartMode.RAW_EEG);
-        modeSpinner.setAdapter(ArrayAdapter.createFromResource(context, R.array
-                .real_time_chart_mode, R.layout.view_spinner_item));
-        modeSpinner.setSelection(currenModePostion);
+
         return view;
     }
 
@@ -145,27 +127,11 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
 
 
     private void plotEEG(MuseDataPacket museDataPacket) {
-        if (charView != null && currenModePostion == 0) {
-            charView.plot(museDataPacket.values().get(0).floatValue(), museDataPacket.values()
-                            .get(1).floatValue(), museDataPacket.values().get(2).floatValue(),
-                    museDataPacket.values().get(3).floatValue());
-        }
-    }
 
-    private void plotBandAbs(MuseDataPacket museDataPacket) {
-        if (charView != null && currenModePostion == 1) {
-            charView.plot(museDataPacket.values().get(0).floatValue(), museDataPacket.values()
-                            .get(1).floatValue(), museDataPacket.values().get(2).floatValue(),
-                    museDataPacket.values().get(3).floatValue());
-        }
-    }
+        charView.plot(museDataPacket.values().get(0).floatValue(), museDataPacket.values()
+                        .get(1).floatValue(), museDataPacket.values().get(2).floatValue(),
+                museDataPacket.values().get(3).floatValue());
 
-    private void plotBandRtv(MuseDataPacket museDataPacket) {
-        if (charView != null && currenModePostion == 2) {
-            charView.plot(museDataPacket.values().get(0).floatValue(), museDataPacket.values()
-                            .get(1).floatValue(), museDataPacket.values().get(2).floatValue(),
-                    museDataPacket.values().get(3).floatValue());
-        }
     }
 
 
