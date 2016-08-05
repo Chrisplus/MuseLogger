@@ -35,11 +35,14 @@
     <string name="muse_available_list">Available Muse Devices:</string>
 
     <string name="instant_no_data_tips">NO EEG data feed</string>
+    <string name="instant_btn_action_record">Record</string>
+    <string name="instant_btn_action_stop">Stop</string>
 
     <string-array name="real_time_chart_mode">
         <item>Raw EEG</item>
         <item>Band Absolute</item>
         <item>Band Relative</item>
     </string-array>
+
 
 </resources>

@@ -38,7 +38,9 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.7'
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
+    compile 'com.github.johnpersano:supertoasts:2.0'
 
     compile 'de.greenrobot:eventbus:2.4.0'
+
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
 }
