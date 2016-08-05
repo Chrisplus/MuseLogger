@@ -1,10 +1,13 @@
 package com.chrisplus.muselogger.utils;
 
+import com.chrisplus.muselogger.R;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ListHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.BaseAdapter;
@@ -28,6 +31,25 @@ public class WidgetUtils {
                         (onItemClickListener).setGravity(Gravity.TOP).create();
 
         return dialogPlus;
+    }
+
+    public static final Snackbar buildRecordSnackbar(Context context, View parent, View
+            .OnClickListener onClickListener) {
+        Snackbar snackbar = Snackbar.make(parent, R.string.snack_logging_title, Snackbar
+                .LENGTH_INDEFINITE);
+        snackbar.getView().setBackgroundColor(ContextCompat.getColor(context, R.color
+                .colorPrimary));
+        snackbar.setAction(R.string.snack_logging_action, onClickListener);
+        return snackbar;
+    }
+
+    public static final Snackbar buildSaveSnackbar(Context context, View parent, String
+            saveLocation) {
+        Snackbar snackbar = Snackbar.make(parent, context.getString(R.string.snack_save_title,
+                saveLocation), Snackbar.LENGTH_SHORT);
+        snackbar.getView().setBackgroundColor(ContextCompat.getColor(context, R.color
+                .colorPrimary));
+        return snackbar;
     }
 
 

@@ -4,6 +4,7 @@ import com.choosemuse.libmuse.Muse;
 import com.choosemuse.libmuse.MuseDataPacket;
 import com.chrisplus.muselogger.MuseHelper;
 import com.chrisplus.muselogger.R;
+import com.chrisplus.muselogger.utils.WidgetUtils;
 import com.chrisplus.muselogger.views.EEGChartView;
 import com.chrisplus.muselogger.views.IndicatorArrayView;
 import com.orhanobut.logger.Logger;
@@ -12,6 +13,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,7 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
 
     public static final String TAG = InstantViewFragment.class.getSimpleName();
 
+
     @BindView(R.id.instant_indicator_array)
     public IndicatorArrayView indicatorArrayView;
 
@@ -46,12 +49,25 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
 
     @OnClick(R.id.instant_action_btn)
     public void onClickActionBtn(Button button) {
-        SnackBar
+        if (snackbar == null) {
+            snackbar = WidgetUtils.buildRecordSnackbar(context, getView(), new View
+                    .OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Logger.t(TAG).d("logging snackbar stop clicked");
+                }
+            });
+        }
+
+        if (!snackbar.isShownOrQueued()) {
+            snackbar.show();
+        }
     }
 
     private Context context;
     private Muse currentMuse;
     private Subscription museDataSubscription;
+    private Snackbar snackbar;
 
     public static InstantViewFragment newInstance(Muse muse) {
         InstantViewFragment fragment = new InstantViewFragment();
@@ -95,6 +111,9 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
         super.onResume();
         if (currentMuse != null) {
             setTargetedMuse(currentMuse);
+            actionBtn.setEnabled(true);
+        } else {
+            actionBtn.setEnabled(false);
         }
     }
 
