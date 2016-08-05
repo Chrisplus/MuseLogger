@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscription;
@@ -95,9 +97,12 @@ public class InstantViewFragment extends Fragment implements MuseMonitor {
 
     private void listenMuseData(Muse muse) {
         Logger.t(TAG).d("start listen muse data at instant view fragment");
-        museDataSubscription = MuseHelper.getInstance(context).observeMuseData(muse).subscribeOn
-                (Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<MuseDataPacket>() {
+        museDataSubscription = MuseHelper.getInstance(context)
+                .observeMuseData(muse)
+                .subscribeOn(Schedulers.io())
+                .sample(50, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<MuseDataPacket>() {
                     @Override
                     public void call(MuseDataPacket museDataPacket) {
                         processMuseData(museDataPacket);

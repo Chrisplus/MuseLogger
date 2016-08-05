@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -101,8 +103,11 @@ public class DashboardFragment extends Fragment implements MuseMonitor {
 
     private void listenMuseData(final Muse muse) {
         Logger.t(TAG).d("start listen muse data at dashboard fragment");
-        museDataSubscription = MuseHelper.getInstance(context).observeMuseData(muse).subscribeOn
-                (Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        museDataSubscription = MuseHelper.getInstance(context)
+                .observeMuseData(muse)
+                .subscribeOn(Schedulers.io())
+                .sample(500, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<MuseDataPacket>() {
                     @Override
                     public void call(MuseDataPacket museDataPacket) {
