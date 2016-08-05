@@ -105,10 +105,6 @@ public class EEGChartView extends LineChart {
                 lineSetD = ChartUtils.createLine(getResources().getColor(R.color.md_purple_500));
             }
 
-            lineSetA.clear();
-            lineSetB.clear();
-            lineSetC.clear();
-            lineSetD.clear();
 
             switch (currentMode) {
                 case RAW_EEG:
@@ -118,22 +114,22 @@ public class EEGChartView extends LineChart {
                     lineSetD.setLabel("TP10");
                     break;
                 case BAND_ABSOLUTE:
-                    lineSetA.setLabel("Alpha Absolute");
-                    lineSetB.setLabel("Beta Absolute");
-                    lineSetC.setLabel("Delta Absolute");
-                    lineSetD.setLabel("Gamma Absolute");
+                    lineSetA.setLabel("Alpha Abs");
+                    lineSetB.setLabel("Beta Abs");
+                    lineSetC.setLabel("Delta Abs");
+                    lineSetD.setLabel("Gamma Abs");
                     break;
                 case BAND_RELATIVE:
-                    lineSetA.setLabel("ALpha Relative");
-                    lineSetB.setLabel("Beta Relative");
-                    lineSetC.setLabel("Delta Relative");
-                    lineSetD.setLabel("Gamma Relative");
+                    lineSetA.setLabel("Alpha Rtv");
+                    lineSetB.setLabel("Beta Rtv");
+                    lineSetC.setLabel("Delta Rtv");
+                    lineSetD.setLabel("Gamma Rtv");
                     break;
                 default:
-                    lineSetA.setLabel("Erro Lable A");
-                    lineSetB.setLabel("Erro Lable B");
-                    lineSetC.setLabel("Erro Lable C");
-                    lineSetD.setLabel("Erro Lable D");
+                    lineSetA.setLabel("Error A");
+                    lineSetB.setLabel("Error B");
+                    lineSetC.setLabel("Error C");
+                    lineSetD.setLabel("Error D");
             }
 
             if (getData() == null) {
@@ -141,10 +137,20 @@ public class EEGChartView extends LineChart {
             }
 
             getData().clearValues();
+
+            lineSetA.clear();
+            lineSetB.clear();
+            lineSetC.clear();
+            lineSetD.clear();
+
             getData().addDataSet(lineSetA);
             getData().addDataSet(lineSetB);
             getData().addDataSet(lineSetC);
             getData().addDataSet(lineSetD);
+
+            getData().notifyDataChanged();
+            notifyDataSetChanged();
+            invalidate();
         }
     }
 }

@@ -36,4 +36,10 @@
 
     <string name="instant_no_data_tips">NO EEG data feed</string>
 
+    <string-array name="real_time_chart_mode">
+        <item>Raw EEG</item>
+        <item>Band Absolute</item>
+        <item>Band Relative</item>
+    </string-array>
+
 </resources>
